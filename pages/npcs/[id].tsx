@@ -11,6 +11,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { NPC } from '@/types/npc';
 import { dbConnect } from '@/lib/dbConnect';
 import { NPC as NPCModel } from '@/models/npc';
+import Image from 'next/image';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
@@ -28,6 +29,7 @@ const NPCProfile = ({ initialNPC, error: initialError }: NPCProfileProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(initialError || '');
+  const [profileImage, setProfileImage] = useState<string | null>(npc?.profileImage || null);
 
   // Optimistic update handler
   const handleOptimisticUpdate = async (field: keyof NPC, value: any) => {
@@ -135,6 +137,14 @@ const NPCProfile = ({ initialNPC, error: initialError }: NPCProfileProps) => {
               {isEditing ? 'Cancel' : 'Edit'}
             </Button>
           </header>
+
+          <div className="flex items-center gap-4 mb-4">
+            {profileImage ? (
+              <Image src={profileImage} alt="Profile" width={96} height={96} className="rounded-full object-cover" />
+            ) : (
+              <div className="w-24 h-24 bg-gray-200 rounded-full" />
+            )}
+          </div>
 
           <section aria-labelledby="basic-info-title">
             <h2 className="text-xl font-semibold mb-4" id="basic-info-title">Basic Information</h2>

@@ -9,9 +9,5 @@ module.exports = {
   moduleNameMapper: {
     '^@models/(.*)$': '<rootDir>/models/$1',
   },
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-    },
-  },
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };

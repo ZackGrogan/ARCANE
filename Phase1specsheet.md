@@ -83,35 +83,41 @@
 
 ## v0.4.0-BETA
 ### Profile Picture Generation
-- [ ] **Integrate Hugging Face API with FLUX Model**
-  - [ ] Set up an account with Hugging Face and obtain API keys
-  - [ ] Implement API calls to generate images based on text descriptions
-  - [ ] Handle authentication and error checking for API calls
-- [ ] **Implement Prompt Engineering Pipeline**
-  - [ ] Develop functions to construct prompts with quality modifiers
-  - [ ] Implement negative prompts to avoid undesired outputs
-- [ ] **Enhance Profile Pages**
-  - [ ] Enable users to:
-    - [ ] Manually input descriptions for image generation
-    - [ ] Edit AI-generated descriptions
-    - [ ] Upload custom images
-- [ ] **Display Generated Images**
-  - [ ] Update the UI to display profile pictures
-  - [ ] Handle image storage and retrieval securely
+- [x] **Implement Local Storage Solution**
+  - [x] Create local storage service for handling images
+  - [x] Remove AWS S3 dependencies
+  - [x] Update API endpoints to use local storage
+  - [x] Add image upload endpoint
+  - [x] Update tests for local storage
+- [x] **Integrate Hugging Face API with FLUX Model**
+  - [x] Set up an account with Hugging Face and obtain API keys
+  - [x] Implement API calls to generate images based on text descriptions
+  - [x] Handle authentication and error checking for API calls
+- [x] **Implement Prompt Engineering Pipeline**
+  - [x] Develop functions to construct prompts with quality modifiers
+  - [x] Implement negative prompts to avoid undesired outputs
+- [x] **Enhance Profile Pages**
+  - [x] Enable users to:
+    - [x] Manually input descriptions for image generation
+    - [x] Edit AI-generated descriptions
+    - [x] Upload custom images
+- [x] **Display Generated Images**
+  - [x] Update the UI to display profile pictures
+  - [x] Handle image storage and retrieval securely
 
 ## v0.5.0-BETA
 ### Random Encounters Generator
-- [ ] **Develop Encounter Generation Feature**
-  - [ ] Implement AI functions to generate encounter components:
-    - [ ] Titles
-    - [ ] Descriptions
-    - [ ] Monsters with tactics
-    - [ ] Biome and environment
-    - [ ] Weather conditions
-    - [ ] Environmental hazards
-    - [ ] Loot suggestions
-    - [ ] Roleplaying scenarios
-    - [ ] Difficulty ratings
+- [x] **Develop Encounter Generation Feature**
+  - [x] Implement AI functions to generate encounter components:
+    - [x] Titles
+    - [x] Descriptions
+    - [x] Monsters with tactics
+    - [x] Biome and environment
+    - [x] Weather conditions
+    - [x] Environmental hazards
+    - [x] Loot suggestions
+    - [x] Roleplaying scenarios
+    - [x] Difficulty ratings
 
 ## v0.6.0-BETA
 ### Campaign Management

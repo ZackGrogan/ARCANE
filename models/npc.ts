@@ -9,6 +9,7 @@ export interface NPCDocument extends Document {
   appearance?: string;
   skills: string[];
   equipment: string[];
+  profileImage?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -65,10 +66,15 @@ const NPCSchema = new Schema({
     default: [],
     validate: {
       validator: function(v: string[]) {
-        return v.every(item => item.length >= 1 && item.length <= 100);
+        return v.every(item => item.length > 0 && item.length <= 100);
       },
       message: 'Each equipment item must be between 1 and 100 characters'
     }
+  },
+  profileImage: {
+    type: String,
+    trim: true,
+    default: null
   }
 }, {
   timestamps: true, // Adds createdAt and updatedAt fields

@@ -1,7 +1,7 @@
 import { createMocks } from 'node-mocks-http';
 import createNPCHandler from '../../../pages/api/npcs/create';
 import connectToDatabase from '../../../utils/mongodb';
-import mongoose from 'mongoose';
+import { mongoose } from 'mongoose';
 
 jest.mock('../../../utils/mongodb', () => ({
   __esModule: true,

@@ -1,11 +1,10 @@
 import { createMocks } from 'node-mocks-http';
 import handler from '@/pages/api/npcs';
-import { connectDB, disconnectDB } from '@/utils/mongodb';
+import connectToDatabase from '@/utils/mongodb';
 import NPC from '@/models/npc';
 
 jest.mock('@/utils/mongodb', () => ({
-  connectDB: jest.fn(),
-  disconnectDB: jest.fn(),
+  connectToDatabase: jest.fn(),
 }));
 
 describe('/api/npcs', () => {
@@ -52,8 +51,7 @@ describe('/api/npcs', () => {
 
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(mockNPCs);
-    expect(connectDB).toHaveBeenCalled();
-    expect(disconnectDB).toHaveBeenCalled();
+    expect(connectToDatabase).toHaveBeenCalled();
   });
 
   it('should handle errors gracefully', async () => {

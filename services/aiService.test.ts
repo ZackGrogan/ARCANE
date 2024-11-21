@@ -1,10 +1,10 @@
-import { aiGenerator, PlaceholderGenerator } from './aiService';
+import { aiGenerator } from './aiService';
 
 describe('AIContentGenerator', () => {
-  let generator: PlaceholderGenerator;
+  let generator: aiGenerator;
 
   beforeEach(() => {
-    generator = new PlaceholderGenerator();
+    generator = new aiGenerator();
   });
 
   it('should generate a name', async () => {

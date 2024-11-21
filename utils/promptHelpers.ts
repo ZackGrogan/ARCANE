@@ -114,3 +114,55 @@ export const contentGuidelines = {
     ]
   }
 };
+
+export class ProfilePicturePromptHelper {
+  static readonly EXAMPLE_PROMPTS = [
+    'A battle-hardened dwarf warrior with a thick braided beard, wearing ornate plate armor and bearing scars from countless battles.',
+    'An elegant high elf wizard with flowing silver hair, adorned in mystical robes with intricate arcane symbols.',
+    'A mysterious tiefling rogue with deep purple skin, curved horns, and a mischievous smile, wearing dark leather armor.',
+  ];
+
+  static readonly QUALITY_GUIDELINES = {
+    composition: [
+      'Clear facial features and expressions',
+      'Well-defined lighting and shadows',
+      'Balanced composition and framing',
+    ],
+    style: [
+      'Consistent with D&D 5e art style',
+      'Professional fantasy portrait quality',
+      'Appropriate level of detail',
+    ],
+    content: [
+      'Character-appropriate clothing and accessories',
+      'Race-specific features accurately represented',
+      'Mood and atmosphere matching character background',
+    ],
+  };
+
+  static readonly NEGATIVE_PROMPTS = [
+    'low quality',
+    'blurry',
+    'distorted',
+    'inappropriate content',
+    'oversaturated',
+    'poorly lit',
+    'missing details',
+  ];
+
+  static getExamplePrompt(): string {
+    return this.EXAMPLE_PROMPTS[Math.floor(Math.random() * this.EXAMPLE_PROMPTS.length)];
+  }
+
+  static getQualityGuideline(category: keyof typeof this.QUALITY_GUIDELINES): string[] {
+    return this.QUALITY_GUIDELINES[category];
+  }
+
+  static getNegativePrompts(): string {
+    return this.NEGATIVE_PROMPTS.join(', ');
+  }
+
+  static enhancePrompt(basePrompt: string, qualityModifier: string): string {
+    return `${basePrompt}, ${qualityModifier}, fantasy character portrait, detailed features, professional lighting`;
+  }
+}

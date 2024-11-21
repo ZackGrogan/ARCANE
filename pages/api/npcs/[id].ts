@@ -2,6 +2,15 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { dbConnect } from '@/lib/dbConnect';
 import { NPC } from '@/models/npc';
 import { isValidObjectId } from 'mongoose';
+import formidable from 'formidable';
+import fs from 'fs';
+import { uploadImage, deleteImage } from '@/services/localStorageService';
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
@@ -30,32 +39,40 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       case 'PATCH': {
-        const updateData = req.body;
-        
-        // Validate the update data
-        const npc = await NPC.findById(id);
-        if (!npc) {
-          return res.status(404).json({ error: 'NPC not found' });
-        }
+        const form = new formidable.IncomingForm();
 
-        // Update only the fields that are provided
-        Object.keys(updateData).forEach(key => {
-          if (updateData[key] !== undefined) {
-            npc[key] = updateData[key];
+        form.parse(req, async (err, fields, files) => {
+          if (err) {
+            return res.status(400).json({ error: 'Error parsing form data' });
           }
+
+          const updateData = fields;
+          const npc = await NPC.findById(id);
+          if (!npc) {
+            return res.status(404).json({ error: 'NPC not found' });
+          }
+
+          if (files.profileImage) {
+            const file = files.profileImage as formidable.File;
+            const fileContent = fs.readFileSync(file.filepath);
+
+            if (npc.profileImage) {
+              const oldFileName = npc.profileImage.split('/').pop();
+              if (oldFileName) {
+                await deleteImage(oldFileName);
+              }
+            }
+
+            const imageUrl = await uploadImage(fileContent, file.mimetype);
+            updateData.profileImage = imageUrl;
+          }
+
+          Object.assign(npc, updateData);
+          await npc.save();
+
+          return res.status(200).json(npc);
         });
-
-        try {
-          await npc.validate();
-        } catch (validationError: any) {
-          return res.status(400).json({
-            error: 'Validation failed',
-            details: validationError.errors
-          });
-        }
-
-        const updatedNPC = await npc.save();
-        return res.status(200).json(updatedNPC);
+        break;
       }
 
       case 'PUT': {
@@ -66,8 +83,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             id,
             updateData,
             {
-              new: true, // Return the updated document
-              runValidators: true, // Run schema validators
+              new: true,
+              runValidators: true,
               context: 'query'
             }
           );
@@ -86,12 +103,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       case 'DELETE': {
-        const deletedNPC = await NPC.findByIdAndDelete(id);
-        
-        if (!deletedNPC) {
+        const npc = await NPC.findById(id);
+        if (!npc) {
           return res.status(404).json({ error: 'NPC not found' });
         }
 
+        // Delete associated profile image if it exists
+        if (npc.profileImage) {
+          const fileName = npc.profileImage.split('/').pop();
+          if (fileName) {
+            await deleteImage(fileName);
+          }
+        }
+
+        await NPC.findByIdAndDelete(id);
         return res.status(200).json({ message: 'NPC deleted successfully' });
       }
 
@@ -102,7 +127,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (error: any) {
     console.error('API Error:', error);
     
-    // Handle specific error types
     if (error.name === 'ValidationError') {
       return res.status(400).json({
         error: 'Validation failed',

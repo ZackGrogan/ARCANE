@@ -1,40 +1,40 @@
 # ARCANE Development Checklist
 
-## v0.1.0-ALPHA
+## v0.1.0-ALPHA (✅ COMPLETED)
 ### NPC and Character Creator: Manual Creation
-- [ ] **Set Up Project Environment**
-  - [ ] Initialize a Next.js project with TypeScript support.
-  - [ ] Install and configure Tailwind CSS for styling.
-- [ ] **Implement Manual Input Forms**
-  - [ ] Create forms for users to input NPC and character attributes:
-    - [ ] Name
-    - [ ] Race
-    - [ ] Class
-    - [ ] Background
-    - [ ] Alignment
-    - [ ] Personality Traits
-    - [ ] Backstory
-    - [ ] Appearance
-    - [ ] Skills
-    - [ ] Equipment
-- [ ] **Set Up MongoDB Database**
-  - [ ] Install MongoDB and set up a local development database.
-  - [ ] Define schemas for NPCs and characters based on the design document.
-  - [ ] Implement Mongoose or equivalent ORM for schema management.
-  - [ ] Create collections for NPCs and characters.
-- [ ] **Implement Basic CRUD Operations**
-  - [ ] **Create**
-    - [ ] Save new NPCs and characters to the database.
-  - [ ] **Read**
-    - [ ] Fetch and display a list of NPCs and characters.
-  - [ ] **Update**
-    - [ ] Enable editing of existing NPCs and characters.
-  - [ ] **Delete**
-    - [ ] Allow deletion of NPCs and characters.
-- [ ] **Basic Frontend Development**
-  - [ ] Design a simple and responsive UI for the input forms.
-  - [ ] Ensure accessibility standards are met.
-  - [ ] Implement client-side validation for form inputs.
+- [x] **Set Up Project Environment**
+  - [x] Initialize a Next.js project with TypeScript support.
+  - [x] Install and configure Tailwind CSS for styling.
+- [x] **Implement Manual Input Forms**
+  - [x] Create forms for users to input NPC and character attributes:
+    - [x] Name
+    - [x] Race
+    - [x] Class
+    - [x] Background
+    - [x] Alignment
+    - [x] Personality Traits
+    - [x] Backstory
+    - [x] Appearance
+    - [x] Skills
+    - [x] Equipment
+- [x] **Set Up MongoDB Database**
+  - [x] Install MongoDB and set up a local development database.
+  - [x] Define schemas for NPCs and characters based on the design document.
+  - [x] Implement Mongoose or equivalent ORM for schema management.
+  - [x] Create collections for NPCs and characters.
+- [x] **Implement Basic CRUD Operations**
+  - [x] **Create**
+    - [x] Save new NPCs and characters to the database.
+  - [x] **Read**
+    - [x] Fetch and display a list of NPCs and characters.
+  - [x] **Update**
+    - [x] Enable editing of existing NPCs and characters.
+  - [x] **Delete**
+    - [x] Allow deletion of NPCs and characters.
+- [x] **Basic Frontend Development**
+  - [x] Design a simple and responsive UI for the input forms.
+  - [x] Ensure accessibility standards are met.
+  - [x] Implement client-side validation for form inputs.
 
 ## v0.2.0-ALPHA
 ### Individual Pages for NPCs and Characters

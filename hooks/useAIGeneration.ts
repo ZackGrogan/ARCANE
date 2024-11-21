@@ -7,7 +7,6 @@ import {
   AIGenerationResponse 
 } from '../utils/aiGenerationUtils';
 import { ProfilePicturePromptHelper } from '../utils/promptHelpers';
-import { generateProfilePicture } from '@/services/huggingFaceService';
 
 interface UseAIGenerationProps {
   field?: string;
@@ -76,26 +75,23 @@ export const useAIGeneration = ({
 
     try {
       const enhancedPrompt = `${prompt}, ${qualityModifier}, fantasy style, detailed, professional lighting`;
-      const imageBlob = await generateProfilePicture(enhancedPrompt);
-      
-      // Convert blob to File
-      const file = new File([imageBlob], 'profile-picture.png', { type: 'image/png' });
-      
-      // Create form data
-      const formData = new FormData();
-      formData.append('image', file);
 
-      // Upload the image to local storage
-      const response = await fetch('/api/upload-image', {
+      // Call the new API route
+      const response = await fetch('/api/generate-profile-picture', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: enhancedPrompt }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to upload generated image');
+        throw new Error('Failed to generate image');
       }
 
-      const { imageUrl } = await response.json();
+      const data = await response.json();
+      const imageUrl = data.image; // This should be a Base64 string
+
       onSuccess?.(imageUrl);
       return imageUrl;
     } catch (err) {

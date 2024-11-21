@@ -3,6 +3,7 @@ import axios from 'axios';
 const HUGGING_FACE_API_KEY = process.env.HUGGING_FACE_API_KEY;
 const HUGGING_FACE_API_URL = 'https://api-inference.huggingface.co/models/flux';
 
+// Removed console log for API key
 if (!HUGGING_FACE_API_KEY) {
   throw new Error('Hugging Face API Key is not set in the environment variables.');
 }

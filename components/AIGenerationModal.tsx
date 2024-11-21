@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Transition, Fragment } from '@headlessui/react';
+import { Dialog, Transition, Fragment } from '@/components/UI';
 import { useAIGeneration } from '../hooks/useAIGeneration';
 import { getFieldHelp, getExamplePrompts } from '../utils/aiGenerationUtils';
 

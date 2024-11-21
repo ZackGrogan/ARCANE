@@ -240,6 +240,67 @@
   - [ ] Configure monitoring
   - [ ] Implement analytics
 
+## Project File Structure
+
+```
+├── .env.example
+├── .env.local
+├── .eslintrc.json
+├── .git/
+├── .gitignore
+├── .next/
+├── .prettierrc
+├── CONTRIBUTING.md
+├── Phase1specsheet.md
+├── README.md
+├── RELEASE_CHECKLIST.md
+├── RELEASE_NOTES.md
+├── __tests__/                  # Test files
+├── arcane/                     # Core application logic
+├── checklist.md
+├── components/                 # React components
+│   ├── AIGenerationModal.tsx
+│   ├── EncounterGenerator/
+│   ├── NPCForm.tsx
+│   ├── ProfilePictureGenerator/
+│   └── Tooltip.tsx
+├── docs/                       # Documentation files
+├── hooks/                      # Custom React hooks
+├── jest.config.js
+├── jest.setup.js
+├── lib/                       # Library utilities
+├── models/                    # Data models
+├── next-env.d.ts
+├── node_modules/
+├── package-lock.json
+├── package.json
+├── pages/                     # Next.js pages
+│   ├── api/                  # API routes
+│   ├── encounters.tsx
+│   ├── index.tsx
+│   ├── npcs/
+│   └── profile-pictures.tsx
+├── pnpm-lock.yaml
+├── services/                  # Service layer
+│   ├── aiService.test.ts
+│   ├── aiService.ts
+│   ├── appearanceGenerator.ts
+│   ├── backstoryGenerator.ts
+│   ├── dnd5eApiService.ts
+│   ├── dnd5eData.ts
+│   ├── encounterGenerationService.ts
+│   ├── huggingFaceService.ts
+│   ├── localStorageService.ts
+│   ├── nameGenerator.ts
+│   └── personalityGenerator.ts
+├── src/                      # Source files
+├── swagger.yaml              # API documentation
+├── tsconfig.json            # TypeScript configuration
+├── types/                   # TypeScript type definitions
+├── utils/                   # Utility functions
+└── vercel.json             # Vercel deployment configuration
+```
+
 ---
 
 # Design Specification Document

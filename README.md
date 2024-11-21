@@ -2,7 +2,7 @@
 
 ## Version
 
-Current Version: `v0.1.0-ALPHA`
+Current Version: `v0.3.0-ALPHA`
 
 ## Overview
 
@@ -61,18 +61,24 @@ ARCANE is a full-stack application designed to assist Dungeon Masters (DMs) and 
 
 ### v0.3.0-ALPHA
 **AI-Generated Creation for NPCs and Characters**
-- Integrate AI Services (Placeholder)
-  - Set up architecture for AI integration.
-  - Implement functions to:
-    - Generate names
-    - Assign races and classes
-    - Create backstories and personality traits
-    - Describe appearance
+- Integrate AI Placeholder Services
+  - Set up a modular AI service to generate attributes like names, races, classes, backstories, personality traits, and appearances.
+  - Implement placeholder functions using simple algorithms or mock data.
+  - Design the module with interfaces or abstract classes for future AI model integration.
 
-**User Interface for AI Generation**
-- Add AI Generation Options in Forms
-  - Provide buttons or toggles to generate attributes using AI.
-  - Allow users to input prompts for AI generation.
+**Update Creation Forms**
+- Add AI generation options to NPC and character creation forms.
+- Allow user prompts for AI generation to customize outputs.
+- Display loading indicators while AI content is being generated.
+- Populate form fields with AI-generated content once received.
+- Allow users to edit AI-generated content before submission.
+
+**Testing and Validation**
+- Implement unit tests for the AI service module using Jest.
+- Ensure data validation and sanitization for all generated content.
+
+**Documentation Updates**
+- Update README and other documentation files to reflect new AI features and usage instructions.
 
 ### v0.4.0-BETA
 **Profile Picture Generation**

@@ -64,20 +64,22 @@
 
 ## v0.3.0-ALPHA
 ### AI-Generated Creation for NPCs and Characters
-- [ ] **Integrate AI Placeholder Services**
-  - [ ] Set up a basic AI service (mock or simple algorithm) for generating:
-    - [ ] Names
-    - [ ] Races
-    - [ ] Classes
-    - [ ] Backstories
-    - [ ] Personality Traits
-    - [ ] Appearances
-- [ ] **Update Creation Forms**
-  - [ ] Add options/buttons to generate attributes using AI
-  - [ ] Allow users to provide prompts for AI generation
-  - [ ] Handle AI responses and populate form fields accordingly
-- [ ] **Prepare for Future AI Integration**
-  - [ ] Design the system to easily integrate with more advanced AI models later
+- [x] **Integrate AI Placeholder Services**
+  - [x] Set up a basic AI service (mock or simple algorithm) for generating:
+    - [x] Names (with race-specific patterns)
+    - [x] Races (integrated with D&D 5e data)
+    - [x] Classes (integrated with D&D 5e data)
+    - [x] Backstories (template-based generation)
+    - [x] Personality Traits (comprehensive trait system)
+    - [x] Appearances (detailed physical descriptions)
+- [x] **Update Creation Forms**
+  - [x] Add options/buttons to generate attributes using AI
+  - [x] Allow users to provide prompts for AI generation
+  - [x] Handle AI responses and populate form fields accordingly
+- [x] **Prepare for Future AI Integration**
+  - [x] Design the system to easily integrate with more advanced AI models later
+  - [x] Create modular generator services
+  - [x] Implement interfaces for AI content generation
 
 ## v0.4.0-BETA
 ### Profile Picture Generation
@@ -110,6 +112,127 @@
     - [ ] Loot suggestions
     - [ ] Roleplaying scenarios
     - [ ] Difficulty ratings
+
+## v0.6.0-BETA
+### Campaign Management
+- [ ] **Campaign Organization**
+  - [ ] Create campaign dashboard
+  - [ ] Implement campaign creation and editing
+  - [ ] Add session management
+  - [ ] Enable NPC and encounter organization within campaigns
+- [ ] **Campaign Timeline**
+  - [ ] Develop timeline visualization
+  - [ ] Add event creation and management
+  - [ ] Enable drag-and-drop organization
+- [ ] **Notes System**
+  - [ ] Implement rich text campaign notes
+  - [ ] Add tagging and categorization
+  - [ ] Enable linking to NPCs and encounters
+
+## v0.7.0-BETA
+### Combat Tracker
+- [ ] **Initiative Tracking**
+  - [ ] Create initiative order management
+  - [ ] Add automatic initiative rolling
+  - [ ] Enable manual initiative adjustment
+- [ ] **Combat Management**
+  - [ ] Implement HP tracking
+  - [ ] Add status effect management
+  - [ ] Create turn order automation
+- [ ] **Combat Calculations**
+  - [ ] Add damage calculation
+  - [ ] Implement saving throws
+  - [ ] Create critical hit handling
+
+## v0.8.0-BETA
+### Maps and Locations
+- [ ] **Map Management**
+  - [ ] Enable map uploads
+  - [ ] Add map annotation tools
+  - [ ] Implement fog of war
+- [ ] **Location Database**
+  - [ ] Create location profiles
+  - [ ] Add AI-generated location descriptions
+  - [ ] Enable linking NPCs to locations
+- [ ] **Interactive Features**
+  - [ ] Add distance measurement
+  - [ ] Implement token placement
+  - [ ] Create dynamic lighting
+
+## v0.9.0-BETA
+### Quest Management
+- [ ] **Quest System**
+  - [ ] Implement quest creation and tracking
+  - [ ] Add quest objectives and milestones
+  - [ ] Enable quest rewards management
+- [ ] **AI Quest Generation**
+  - [ ] Create quest premise generation
+  - [ ] Add branching narrative options
+  - [ ] Implement dynamic quest adaptation
+- [ ] **Quest Integration**
+  - [ ] Link quests to NPCs and locations
+  - [ ] Add quest progress tracking
+  - [ ] Enable quest-related note taking
+
+## v0.10.0-BETA
+### Inventory and Items
+- [ ] **Item Management**
+  - [ ] Create item database
+  - [ ] Implement inventory tracking
+  - [ ] Add item categorization
+- [ ] **Magic Item Generation**
+  - [ ] Add AI-generated magic items
+  - [ ] Implement item history generation
+  - [ ] Create custom item properties
+- [ ] **Economy System**
+  - [ ] Add currency tracking
+  - [ ] Implement shop generation
+  - [ ] Create price calculation
+
+## v0.11.0-BETA
+### Player Tools
+- [ ] **Character Sheets**
+  - [ ] Create digital character sheets
+  - [ ] Add automatic calculations
+  - [ ] Enable spell management
+- [ ] **Player Dashboard**
+  - [ ] Implement session scheduling
+  - [ ] Add character progression tracking
+  - [ ] Create player notes system
+- [ ] **Collaboration Features**
+  - [ ] Add real-time chat
+  - [ ] Enable file sharing
+  - [ ] Implement shared calendars
+
+## v0.12.0-BETA
+### Polish and Optimization
+- [ ] **Performance Optimization**
+  - [ ] Implement caching
+  - [ ] Add lazy loading
+  - [ ] Optimize database queries
+- [ ] **UI/UX Improvements**
+  - [ ] Add animations and transitions
+  - [ ] Implement dark mode
+  - [ ] Create responsive layouts
+- [ ] **Quality of Life**
+  - [ ] Add keyboard shortcuts
+  - [ ] Implement undo/redo
+  - [ ] Create data backup system
+
+## v1.0.0-RELEASE
+### Final Release Preparation
+- [ ] **Testing and Validation**
+  - [ ] Conduct comprehensive testing
+  - [ ] Fix all critical bugs
+  - [ ] Perform security audit
+- [ ] **Documentation**
+  - [ ] Complete user documentation
+  - [ ] Create API documentation
+  - [ ] Add tutorial videos
+- [ ] **Deployment**
+  - [ ] Set up production environment
+  - [ ] Configure monitoring
+  - [ ] Implement analytics
 
 ---
 

@@ -1,5 +1,9 @@
 import { aiGenerator } from './aiService';
 
+jest.mock('./nameGenerator', () => ({
+  generateName: jest.fn().mockReturnValue('Mocked Name')
+}));
+
 describe('AIContentGenerator', () => {
   let generator: aiGenerator;
 
@@ -35,5 +39,12 @@ describe('AIContentGenerator', () => {
   it('should generate an appearance', async () => {
     const appearance = await generator.generateAppearance();
     expect(appearance).toBe('Tall with a muscular build and a scar across his face.');
+  });
+
+  it('should handle errors gracefully', async () => {
+    jest.spyOn(generator, 'generateName').mockImplementation(() => {
+      throw new Error('Test error');
+    });
+    await expect(generator.generateName()).rejects.toThrow('Test error');
   });
 });

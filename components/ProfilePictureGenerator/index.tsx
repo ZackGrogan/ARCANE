@@ -31,6 +31,7 @@ export const ProfilePictureGenerator: React.FC<ProfilePictureGeneratorProps> = (
       });
       onImageGenerated(imageUrl);
     } catch (err) {
+      console.error('Error generating image:', err);
       onError?.(err as Error);
     }
   }, [description, qualityModifier, generateImage, onImageGenerated, onError]);
@@ -71,7 +72,7 @@ export const ProfilePictureGenerator: React.FC<ProfilePictureGeneratorProps> = (
         </Button>
 
         <Tooltip title="Upload your own image instead">
-          <Button variant="outlined">
+          <Button variant="outlined" aria-label="Upload Image">
             Upload Image
           </Button>
         </Tooltip>

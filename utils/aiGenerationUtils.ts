@@ -20,6 +20,7 @@ export const generateDefaultPrompt = (field: string, currentCharacter: any): str
 
   // Enhance prompt based on existing character information
   if (currentCharacter) {
+    if (!currentCharacter) return prompt;
     if (currentCharacter.race && field !== 'Race') {
       prompt += ` of ${currentCharacter.race} race`;
     }
@@ -41,6 +42,9 @@ export const validatePrompt = (prompt: string): boolean => {
     "offensive",
     "inappropriate",
     "explicit",
+    "violent",
+    "racist",
+    "sexist",
     // Add more terms as needed
   ];
   

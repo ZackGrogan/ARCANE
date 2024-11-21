@@ -28,7 +28,11 @@ export const generateProfilePicture = async (prompt: string): Promise<Blob> => {
 
     return response.data;
   } catch (error) {
-    console.error('Error generating profile picture:', error);
+    console.error('Error generating profile picture:', {
+      error,
+      prompt,
+      apiUrl: HUGGING_FACE_API_URL
+    });
     throw error;
   }
 };

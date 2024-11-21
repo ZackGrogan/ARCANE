@@ -45,72 +45,83 @@ export const contentGuidelines = {
     dos: [
       "Use names that fit the race's culture",
       "Consider the character's background",
-      "Keep names pronounceable"
+      "Keep names pronounceable",
+      "Ensure names are unique within the narrative context"
     ],
     donts: [
       "Avoid offensive or inappropriate terms",
-      "Don't use copyrighted names",
-      "Avoid overly complex names"
+      "Avoid overly complex or unpronounceable names",
+      "Avoid names that conflict with existing lore"
     ]
   },
   Race: {
     dos: [
       "Stick to official D&D 5e races",
       "Consider racial traits and abilities",
-      "Think about cultural implications"
+      "Think about cultural implications",
+      "Ensure consistency with the game world"
     ],
     donts: [
       "Don't create unofficial races",
       "Avoid stereotypical descriptions",
-      "Don't ignore racial limitations"
+      "Don't ignore racial limitations",
+      "Avoid conflicting with existing lore"
     ]
   },
   Class: {
     dos: [
       "Use official D&D 5e classes",
       "Consider multiclass possibilities",
-      "Think about party role"
+      "Think about party role",
+      "Ensure balance with other characters"
     ],
     donts: [
       "Don't create unofficial classes",
       "Avoid overpowered combinations",
-      "Don't ignore class requirements"
+      "Don't ignore class requirements",
+      "Avoid conflicting with existing lore"
     ]
   },
   Backstory: {
     dos: [
       "Create compelling motivations",
       "Include key life events",
-      "Connect to the game world"
+      "Connect to the game world",
+      "Ensure consistency with the character's personality"
     ],
     donts: [
       "Avoid clichéd tropes",
       "Don't make them overpowered",
-      "Avoid inappropriate content"
+      "Avoid inappropriate content",
+      "Don't contradict existing lore"
     ]
   },
   PersonalityTraits: {
     dos: [
       "Create balanced personalities",
       "Include flaws and weaknesses",
-      "Consider alignment"
+      "Consider alignment",
+      "Ensure consistency with the character's backstory"
     ],
     donts: [
       "Avoid one-dimensional traits",
       "Don't make them perfect",
-      "Avoid harmful stereotypes"
+      "Avoid harmful stereotypes",
+      "Don't contradict existing lore"
     ]
   },
   Appearance: {
     dos: [
       "Include distinctive features",
       "Consider race and class",
-      "Add personal style"
+      "Add personal style",
+      "Ensure consistency with the character's personality"
     ],
     donts: [
       "Avoid inappropriate descriptions",
       "Don't ignore racial characteristics",
-      "Avoid unrealistic features"
+      "Avoid unrealistic features",
+      "Don't contradict existing lore"
     ]
   }
 };

@@ -74,35 +74,44 @@ export interface AppearanceProfile {
 }
 
 export function generateAppearance(race?: string, prompt?: string): AppearanceProfile {
-  // If a prompt is provided, use it to influence appearance generation
-  if (prompt) {
-    // TODO: Implement more sophisticated prompt-based appearance generation
+  try {
+    // If a prompt is provided, use it to influence appearance generation
+    if (prompt) {
+      // TODO: Implement more sophisticated prompt-based appearance generation
+      return {
+        physicalDescription: prompt,
+        distinguishingFeature: 'Unique to their nature',
+        attire: 'Suited to their character'
+      };
+    }
+
+    const getRandomElement = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
+
+    // Generate base appearance
+    const height = getRandomElement(physicalTraits.height);
+    const build = getRandomElement(physicalTraits.build);
+    const complexion = getRandomElement(physicalTraits.complexion);
+    
+    // Generate eyes and hair with random colors
+    const eyeColor = getRandomElement(colors.eyes);
+    const hairColor = getRandomElement(colors.hair);
+    const eyes = getRandomElement(physicalTraits.eyes).replace('{color}', eyeColor);
+    const hair = getRandomElement(physicalTraits.hair).replace('{color}', hairColor);
+
+    // Combine into a coherent description
+    const physicalDescription = `${height}, with a ${build} frame. ${complexion} skin complements their ${eyes}. ${hair}.`;
+
     return {
-      physicalDescription: prompt,
-      distinguishingFeature: 'Unique to their nature',
-      attire: 'Suited to their character'
+      physicalDescription,
+      distinguishingFeature: getRandomElement(physicalTraits.distinguishingFeatures),
+      attire: getRandomElement(physicalTraits.clothing)
+    };
+  } catch (error) {
+    console.error('Error generating appearance:', error);
+    return {
+      physicalDescription: 'Unknown',
+      distinguishingFeature: 'None',
+      attire: 'Standard'
     };
   }
-
-  const getRandomElement = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
-
-  // Generate base appearance
-  const height = getRandomElement(physicalTraits.height);
-  const build = getRandomElement(physicalTraits.build);
-  const complexion = getRandomElement(physicalTraits.complexion);
-  
-  // Generate eyes and hair with random colors
-  const eyeColor = getRandomElement(colors.eyes);
-  const hairColor = getRandomElement(colors.hair);
-  const eyes = getRandomElement(physicalTraits.eyes).replace('{color}', eyeColor);
-  const hair = getRandomElement(physicalTraits.hair).replace('{color}', hairColor);
-
-  // Combine into a coherent description
-  const physicalDescription = `${height}, with a ${build} frame. ${complexion} skin complements their ${eyes}. ${hair}.`;
-
-  return {
-    physicalDescription,
-    distinguishingFeature: getRandomElement(physicalTraits.distinguishingFeatures),
-    attire: getRandomElement(physicalTraits.clothing)
-  };
 }

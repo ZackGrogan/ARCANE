@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Paper, Typography, IconButton, Tooltip } from '@mui/material';
+import { Box, Paper, Typography, IconButton, Tooltip, CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -47,9 +47,10 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({
           overflow: 'hidden',
         }}
       >
+        {!imageUrl && <CircularProgress />}
         <Image
           src={imageUrl}
-          alt="Generated character profile"
+          alt="Generated profile picture"
           layout="fill"
           objectFit="cover"
         />

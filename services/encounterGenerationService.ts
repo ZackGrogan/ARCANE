@@ -49,18 +49,36 @@ interface GenerateEncounterOptions {
 const AI_API_URL = process.env.NEXT_PUBLIC_AI_API_URL;
 const DND5E_API_URL = 'https://www.dnd5eapi.co/api';
 
+if (!AI_API_URL) {
+  throw new Error('AI_API_URL is not defined in the environment variables.');
+}
+
+const MAX_RETRIES = 3;
+const TIMEOUT_MS = 10000;
+
 export const generateEncounter = async (
   prompt: string,
-  options: GenerateEncounterOptions
+  options: GenerateEncounterOptions,
+  retryCount = 0
 ): Promise<EncounterComponent> => {
   try {
     // Build the enhanced prompt
     const enhancedPrompt = buildPrompt(prompt, options);
     
     // Generate the initial encounter
-    const response = await axios.post(AI_API_URL, { prompt: enhancedPrompt });
-    if (response.status !== 200) {
-      throw new Error(`Failed to generate encounter: ${response.statusText}`);
+    const response = await axios.post(AI_API_URL, 
+      { prompt: enhancedPrompt },
+      { 
+        timeout: TIMEOUT_MS,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    // Validate response
+    if (!response.data || typeof response.data !== 'object') {
+      throw new Error('Invalid response format');
     }
 
     // Validate and enhance the generated content
@@ -71,7 +89,15 @@ export const generateEncounter = async (
 
     return encounter;
   } catch (error) {
-    console.error('Error generating encounter:', error);
+    if (retryCount < MAX_RETRIES && error.code === 'ECONNABORTED') {
+      console.warn(`Retry attempt ${retryCount + 1} for encounter generation`);
+      return generateEncounter(prompt, options, retryCount + 1);
+    }
+    console.error('Error generating encounter:', {
+      error,
+      prompt,
+      options,
+    });
     throw error;
   }
 };

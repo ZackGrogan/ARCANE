@@ -46,6 +46,7 @@ export const PromptGuidelines: React.FC = () => {
           gap: 1,
           cursor: 'pointer',
         }}
+        aria-expanded={expanded}
         onClick={() => setExpanded(!expanded)}
       >
         <TipsAndUpdatesIcon color="primary" />
@@ -54,7 +55,7 @@ export const PromptGuidelines: React.FC = () => {
         </Typography>
       </Box>
 
-      <Collapse in={expanded}>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <Box sx={{ mt: 2 }}>
           <Typography variant="subtitle2" gutterBottom>
             Tips for Better Results:

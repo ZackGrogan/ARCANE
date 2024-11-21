@@ -46,22 +46,24 @@ export const useAIGeneration = ({
       // Enhance the prompt with guidelines
       const enhancedPrompt = enhancePrompt(field!, prompt);
 
-      // TODO: Replace with actual API call to AI service
-      const response = await mockAICall(enhancedPrompt);
-
-      if (!response.success) {
-        throw new Error(response.error || 'Failed to generate content');
+      try {
+        const response = await mockAICall(enhancedPrompt);
+        if (!response.success) {
+          throw new Error(response.error || 'Failed to generate content.');
+        }
+        const formattedContent = formatAIResponse(field!, response.content!);
+        onSuccess?.(formattedContent);
+      } catch (error) {
+        console.error('Error during AI content generation:', error);
+        setError(error.message);
+        onError?.(error.message);
+      } finally {
+        setIsLoading(false);
       }
-
-      const formattedContent = formatAIResponse(field!, response.content!);
-      
-      onSuccess?.(formattedContent);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
       setError(errorMessage);
       onError?.(errorMessage);
-    } finally {
-      setIsLoading(false);
     }
   };
 

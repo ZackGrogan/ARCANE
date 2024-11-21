@@ -13,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const encounters = await Encounter.find({});
         res.status(200).json(encounters);
       } catch (error) {
+        console.error('Error fetching encounters:', error);
         res.status(500).json({ error: 'Error fetching encounters' });
       }
       break;
@@ -22,6 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         await encounter.save();
         res.status(201).json(encounter);
       } catch (error) {
+        console.error('Error creating encounter:', error);
         res.status(400).json({ error: 'Error creating encounter' });
       }
       break;

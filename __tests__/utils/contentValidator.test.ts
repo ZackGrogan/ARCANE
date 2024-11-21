@@ -223,6 +223,13 @@ describe('contentValidator', () => {
         expect(result.errors).toContain('Invalid difficulty level');
       }
     });
+
+    it('should detect invalid data format', async () => {
+      const invalidEncounter = { ...validEncounter, difficulty: 123 };
+      const result = await validateContent(invalidEncounter);
+      expect(result.isValid).toBe(false);
+      expect(result.errors).toContain('Invalid difficulty format');
+    });
   });
 
   describe('custom rules', () => {
@@ -258,3 +265,7 @@ describe('contentValidator', () => {
     });
   });
 });
+
+jest.mock('@/utils/externalDependency', () => ({
+  externalFunction: jest.fn().mockReturnValue(true)
+}));

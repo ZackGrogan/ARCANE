@@ -19,10 +19,17 @@ export interface AIContentGenerator {
 }
 
 export class LocalContentGenerator implements AIContentGenerator {
+  // TODO: Replace with AI-powered implementation
   generateName(race?: DndRace, prompt?: string): string {
-    return generateName(race, prompt);
+    try {
+      return generateName(race, prompt);
+    } catch (error) {
+      console.error('Error generating name:', error);
+      return 'Unknown';
+    }
   }
 
+  // TODO: Replace with AI-powered implementation
   generateBackstory(params: {
     name: string;
     race?: DndRace;
@@ -30,15 +37,32 @@ export class LocalContentGenerator implements AIContentGenerator {
     background?: DndBackground;
     prompt?: string;
   }): string {
-    return generateBackstory(params);
+    try {
+      return generateBackstory(params);
+    } catch (error) {
+      console.error('Error generating backstory:', error);
+      return 'No backstory available.';
+    }
   }
 
+  // TODO: Replace with AI-powered implementation
   generatePersonality(prompt?: string): PersonalityProfile {
-    return generatePersonality(prompt);
+    try {
+      return generatePersonality(prompt);
+    } catch (error) {
+      console.error('Error generating personality:', error);
+      return {} as PersonalityProfile;
+    }
   }
 
+  // TODO: Replace with AI-powered implementation
   generateAppearance(race?: DndRace, prompt?: string): AppearanceProfile {
-    return generateAppearance(race, prompt);
+    try {
+      return generateAppearance(race, prompt);
+    } catch (error) {
+      console.error('Error generating appearance:', error);
+      return {} as AppearanceProfile;
+    }
   }
 }
 

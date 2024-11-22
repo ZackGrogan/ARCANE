@@ -92,7 +92,6 @@
   - [x] Include instructions for running linting and testing scripts.
 
 - [x] **Team Alignment**
-
   - [x] Ensure all team members have the necessary tools installed and configured.
   - [x] Conduct a team review to verify that the setup meets project standards.
 
@@ -102,29 +101,25 @@
 
 ### Data Models and Basic API v0.2.1-ALPHA
 
-- [ ] **Data Models Implementation**
+- [x] **Data Models Implementation**
 
-  - [ ] NPC Model
-    - [ ] Define basic attributes (name, race, class)
-    - [ ] Include stats and abilities fields (strength, dexterity, etc.)
-    - [ ] Add equipment and skills as related models or JSON fields
-    - [ ] Implement methods for character calculations (e.g., attack bonuses)
-    - [ ] Add validation for essential fields
-  - [ ] Encounter Model
-    - [ ] Define attributes like title, description, biome, weather conditions
-    - [ ] Include environmental hazards and monster lists
-    - [ ] Establish relationships with NPCs and campaigns
-    - [ ] Implement difficulty level calculations
-  - [ ] Campaign Model
-    - [ ] Define campaign name, description, and status (active, completed)
-    - [ ] Set up relationships with NPCs, encounters, and maps
-    - [ ] Implement methods for managing campaign progress
-    - [ ] Add fields for start and end dates
-  - [ ] Map Model
-    - [ ] Define map name, description, and map data (file or JSON)
-    - [ ] Include methods for map manipulation if applicable
-    - [ ] Add thumbnail or preview image fields
-    - [ ] Track creation and modification timestamps
+  - [x] NPC Model
+    - [x] Define basic attributes (name, race, class)
+    - [x] Include stats and abilities fields (strength, dexterity, etc.)
+    - [x] Add equipment and skills as related models or JSON fields
+    - [x] Implement methods for character calculations (e.g., attack bonuses)
+    - [x] Add validation for essential fields
+  - [x] Encounter Model
+    - [x] Define attributes like title, description, biome, weather conditions
+    - [x] Include environmental hazards and monster lists
+    - [x] Establish relationships with NPCs and campaigns
+    - [x] Implement difficulty level calculations
+  - [x] Campaign Model
+    - [x] Define campaign name, description, and status (active, completed)
+    - [x] Set up relationships with NPCs and encounters
+    - [x] Implement methods for managing campaign progress
+    - [x] Add fields for start and end dates
+
 
 ### API Development v0.2.2-ALPHA
 
@@ -145,11 +140,7 @@
     - [ ] Implement Campaign `ViewSet`
     - [ ] Define URL routing and include related NPCs and encounters
     - [ ] Implement custom actions for campaign-specific functionalities
-  - [ ] Map CRUD endpoints
-    - [ ] Create serializers for the Map model
-    - [ ] Implement Map `ViewSet` with file upload handling
-    - [ ] Define URL routing and secure file access
-    - [ ] Implement file validation and size restrictions
+
 
 ### Integration with External APIs v0.2.3-ALPHA
 
@@ -202,7 +193,6 @@
     - [ ] Provide templates for different NPC types or themes
 
 - [ ] **Error Handling**
-
   - [ ] Implement error handling for API requests
     - [ ] Handle network errors, timeouts, and invalid responses
   - [ ] Log errors with context for debugging
@@ -263,34 +253,26 @@
     - [ ] Allow selection of monsters, environment settings, and loot
     - [ ] Integrate AI suggestions for dynamic content
     - [ ] Provide difficulty calculations and balancing tools
-  - [ ] **Map Viewer**
-    - [ ] Integrate a map display component using libraries like `Leaflet.js`
-    - [ ] Allow uploading and viewing maps from Azgaar's Fantasy Map Generator
-    - [ ] Implement zooming, panning, and layer controls
-    - [ ] Enable annotations and markers for interactive maps
+
 
 ### State Management v0.4.2-BETA
 
 - [ ] **Global State Management**
-
   - [ ] Set up Redux or Context API for global state
     - [ ] Manage authentication state and user sessions
     - [ ] Store global data like user profiles and settings
 
 - [ ] **API Services**
-
   - [ ] Create Axios instances for API communication
   - [ ] Include interceptors for handling authentication tokens
   - [ ] Implement error handling and request cancellation
 
 - [ ] **Data Caching**
-
   - [ ] Implement caching strategies for API responses
   - [ ] Use local storage or IndexedDB for persistent caching
   - [ ] Invalidate caches appropriately to maintain data freshness
 
 - [ ] **Error Handling**
-
   - [ ] Centralize error handling and notification systems
   - [ ] Display consistent and user-friendly error messages
   - [ ] Log errors for debugging purposes
@@ -311,24 +293,14 @@
     - [ ] Enable AI-assisted generation of encounters based on party composition
     - [ ] Incorporate environmental effects and random events
     - [ ] Provide suggestions for scaling difficulty
-  - [ ] **Map Generation**
-
-    - [ ] Explore integration with procedural map generation tools
-    - [ ] Allow users to generate maps based on themes or settings
-    - [ ] Implement export and import functionality for map files
 
   - [ ] **Campaign Suggestions**
-
     - [ ] Use AI to generate plot hooks, quests, and storylines
     - [ ] Provide users with customizable templates
     - [ ] Integrate suggestions into existing campaigns
 
 ### UI Enhancements v0.5.2-BETA
 
-- [ ] **Interactive Map Editor**
-  - [ ] Implement drawing tools for users to edit maps directly
-  - [ ] Allow adding custom elements like icons, labels, and paths
-  - [ ] Enable collaboration features for multiple users
 - [ ] **Rich Text Editing**
   - [ ] Integrate a rich text editor for descriptions using libraries like `Draft.js` or `Quill`
   - [ ] Support formatting options, links, and embedded media

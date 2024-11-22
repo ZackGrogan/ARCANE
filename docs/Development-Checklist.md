@@ -123,24 +123,22 @@
 
 ### API Development v0.2.2-ALPHA
 
-- [ ] **CRUD Endpoints**
+- [x] **CRUD Endpoints**
 
-  - [ ] NPC CRUD endpoints
-    - [ ] Create serializers for the NPC model with necessary fields
-    - [ ] Implement NPC `ViewSet` with list, create, retrieve, update, and delete actions
-    - [ ] Define URL routing for NPC endpoints in `urls.py`
-    - [ ] Implement filtering and search capabilities
-  - [ ] Encounter CRUD endpoints
-    - [ ] Create serializers for the Encounter model
-    - [ ] Implement Encounter `ViewSet`
-    - [ ] Define URL routing and include nested serializers if needed
-    - [ ] Add pagination for large lists
-  - [ ] Campaign CRUD endpoints
-    - [ ] Create serializers for the Campaign model
-    - [ ] Implement Campaign `ViewSet`
-    - [ ] Define URL routing and include related NPCs and encounters
-    - [ ] Implement custom actions for campaign-specific functionalities
-
+  - [x] NPC CRUD endpoints
+    - [x] Create serializers for the NPC model with necessary fields
+    - [x] Implement NPC `ViewSet` with list, create, retrieve, update, and delete actions
+    - [x] Define URL routing for NPC endpoints in `urls.py`
+    - [x] Implement filtering and search capabilities
+  - [x] Encounter CRUD endpoints
+    - [x] Create serializers for the Encounter model
+    - [x] Implement Encounter `ViewSet`
+    - [x] Define URL routing and include nested serializers if needed
+    - [x] Add pagination for large lists
+  - [x] Campaign CRUD endpoints
+    - [x] Create serializers for the Campaign model
+    - [x] Implement Campaign `ViewSet`
+    - [x] Define URL routing and include related NPCs and encounters
 
 ### Integration with External APIs v0.2.3-ALPHA
 

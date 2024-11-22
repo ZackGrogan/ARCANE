@@ -21,6 +21,16 @@ def get_npcs():
     npcs = mongo.db.npcs.find()
     return jsonify([npc for npc in npcs]), 200
 
+@npc_blueprint.route('/npcs/edit/<npc_id>', methods=['GET', 'POST'])
+def edit_npc(npc_id):
+    # Logic for editing an NPC
+    pass
+
+@npc_blueprint.route('/npcs/delete/<npc_id>', methods=['POST'])
+def delete_npc(npc_id):
+    # Logic for deleting an NPC
+    pass
+
 # Encounter Routes
 @encounter_blueprint.route('/encounters', methods=['POST'])
 def create_encounter():
@@ -34,6 +44,16 @@ def get_encounters():
     encounters = mongo.db.encounters.find()
     return jsonify([encounter for encounter in encounters]), 200
 
+@encounter_blueprint.route('/encounters/edit/<encounter_id>', methods=['GET', 'POST'])
+def edit_encounter(encounter_id):
+    # Logic for editing an encounter
+    pass
+
+@encounter_blueprint.route('/encounters/delete/<encounter_id>', methods=['POST'])
+def delete_encounter(encounter_id):
+    # Logic for deleting an encounter
+    pass
+
 # Campaign Routes
 @campaign_blueprint.route('/campaigns', methods=['POST'])
 def create_campaign():
@@ -46,3 +66,13 @@ def create_campaign():
 def get_campaigns():
     campaigns = mongo.db.campaigns.find()
     return jsonify([campaign for campaign in campaigns]), 200
+
+@campaign_blueprint.route('/campaigns/edit/<campaign_id>', methods=['GET', 'POST'])
+def edit_campaign(campaign_id):
+    # Logic for editing a campaign
+    pass
+
+@campaign_blueprint.route('/campaigns/delete/<campaign_id>', methods=['POST'])
+def delete_campaign(campaign_id):
+    # Logic for deleting a campaign
+    pass

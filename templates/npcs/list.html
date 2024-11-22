@@ -20,9 +20,9 @@
             <td>{{ npc.class_type }}</td>
             <td>{{ npc.alignment }}</td>
             <td>
-                <a href="/npcs/view/{{ npc.id }}" class="btn btn-primary">View</a>
-                <a href="/npcs/edit/{{ npc.id }}" class="btn btn-secondary">Edit</a>
-                <a href="/npcs/delete/{{ npc.id }}" class="btn btn-danger">Delete</a>
+                <a href="{{ url_for('npcs.view_npc', npc_id=npc.id) }}" class="btn btn-primary">View</a>
+                <a href="{{ url_for('npcs.edit_npc', npc_id=npc.id) }}" class="btn btn-secondary">Edit</a>
+                <a href="{{ url_for('npcs.delete_npc', npc_id=npc.id) }}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         {% endfor %}

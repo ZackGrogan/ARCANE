@@ -69,18 +69,20 @@ This checklist outlines the development roadmap for the ARCANE project, incorpor
 
 ## v0.4.0-BETA - Map Generation Feature Development
 ### Procedural Map Generation Logic v0.4.1-BETA
-- [ ] Develop Map Generation Module
-- [ ] Implement height map generation using Perlin noise
-- [ ] Use noise and Pillow libraries
-- [ ] Classify terrain types based on height values
-- [ ] Assign colors to different terrain types
+- [x] Implement procedural map generation logic using Perlin noise.
+- [x] Use Pillow library for image creation and manipulation.
+- [x] Classify terrain types based on height values.
+- [x] Assign distinct colors to different terrain types.
 
 ### Map Visualization and Interaction v0.4.2-BETA
-- [ ] Integrate Map Generation into Frontend
-- [ ] Create routes for map generation and display
-- [ ] Develop templates to show generated maps
-- [ ] Allow users to adjust generation parameters
-- [ ] Enable map downloading and saving functionalities
+- [x] Integrate map generation into the Flask frontend.
+- [x] Create Flask routes for map generation and display.
+- [x] Develop a Jinja2 template for map generation and display.
+- [x] Enable user interaction for map parameter adjustments.
+- [x] Implement map downloading functionality.
+- [x] Save generated maps to the database.
+- [x] Use dynamic filenames for generated maps.
+- [x] Add input validation for map generation parameters.
 
 ## v0.5.0-BETA - AI Services Integration
 ### AI Service Implementation v0.5.1-BETA

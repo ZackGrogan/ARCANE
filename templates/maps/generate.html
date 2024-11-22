@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Generate Map{% endblock %}
+
+{% block content %}
+<h1>Generate Map</h1>
+<form method="POST" action="{{ url_for('generate_map') }}">
+    <div class="form-group">
+        <label for="width">Width:</label>
+        <input type="number" class="form-control" id="width" name="width" required>
+    </div>
+    <div class="form-group">
+        <label for="height">Height:</label>
+        <input type="number" class="form-control" id="height" name="height" required>
+    </div>
+    <div class="form-group">
+        <label for="scale">Scale:</label>
+        <input type="number" class="form-control" id="scale" name="scale" required>
+    </div>
+    <div class="form-group">
+        <label for="octaves">Octaves:</label>
+        <input type="number" class="form-control" id="octaves" name="octaves" required>
+    </div>
+    <div class="form-group">
+        <label for="persistence">Persistence:</label>
+        <input type="number" class="form-control" id="persistence" name="persistence" step="0.1" required>
+    </div>
+    <div class="form-group">
+        <label for="lacunarity">Lacunarity:</label>
+        <input type="number" class="form-control" id="lacunarity" name="lacunarity" step="0.1" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Generate Map</button>
+</form>
+{% if map_image_url %}
+    <h2>Generated Map</h2>
+    <img src="{{ map_image_url }}" alt="Generated Map" class="img-fluid">
+    <a href="{{ map_image_url }}" download class="btn btn-secondary">Download Map</a>
+{% endif %}
+{% endblock %}

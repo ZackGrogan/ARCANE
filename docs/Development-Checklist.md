@@ -38,57 +38,57 @@
 
 ### Basic Project Structure and Environment v0.1.0-ALPHA
 
-- [ ] **Project Setup**
+- [x] **Project Setup**
 
-  - [ ] Initialize Django backend
-    - [ ] Install Python 3.10 or above
-    - [ ] Create a virtual environment
-    - [ ] Install `Django`, `djangorestframework`, and other dependencies
-    - [ ] Create Django project `arcane_backend`
-    - [ ] Configure `settings.py` with necessary apps and database settings
-  - [ ] Set up React frontend
-    - [ ] Install Node.js v18 and npm
-    - [ ] Initialize React project using `create-react-app`
-    - [ ] Install dependencies: `tailwindcss`, `axios`, `react-router-dom`, `redux`
-    - [ ] Configure Tailwind CSS with `tailwind.config.js`
-  - [ ] Configure MongoDB
-    - [ ] Install MongoDB or set up MongoDB Docker container
-    - [ ] Connect Django to MongoDB using `djongo` or `PyMongo`
-    - [ ] Define database settings in `settings.py`
-    - [ ] Test database connections and CRUD operations
-  - [ ] Set up Git repository
-    - [ ] Initialize Git repository in the project root
-    - [ ] Create `.gitignore` to exclude sensitive files and directories
-    - [ ] Commit initial project structure
-    - [ ] Set up GitHub or GitLab repository for remote collaboration
-  - [ ] Configure development environment
-    - [ ] Set up environment variables using `.env` file
-    - [ ] Document environment setup steps in `README.md`
-    - [ ] Ensure all team members can run the project locally
-    - [ ] Install and configure `pre-commit` hooks for code quality
+  - [x] Initialize Django backend
+    - [x] Install Python 3.10 or above
+    - [x] Create a virtual environment
+    - [x] Install `Django`, `djangorestframework`, and other dependencies
+    - [x] Create Django project `arcane_backend`
+    - [x] Configure `settings.py` with necessary apps and database settings
+  - [x] Set up React frontend
+    - [x] Install Node.js v18 and npm
+    - [x] Initialize React project using `create-react-app`
+    - [x] Install dependencies: `tailwindcss`, `axios`, `react-router-dom`, `redux`
+    - [x] Configure Tailwind CSS with `tailwind.config.js`
+  - [x] Configure MongoDB
+    - [x] Install MongoDB or set up MongoDB Docker container
+    - [x] Connect Django to MongoDB using `djongo` or `PyMongo`
+    - [x] Define database settings in `settings.py`
+    - [x] Test database connections and CRUD operations
+  - [x] Set up Git repository
+    - [x] Initialize Git repository in the project root
+    - [x] Create `.gitignore` to exclude sensitive files and directories
+    - [x] Commit initial project structure
+    - [x] Set up GitHub or GitLab repository for remote collaboration
+  - [x] Configure development environment
+    - [x] Set up environment variables using `.env` file
+    - [x] Document environment setup steps in `README.md`
+    - [x] Ensure all team members can run the project locally
+    - [x] Install and configure `pre-commit` hooks for code quality
 
 ### Development Tools v0.1.1-ALPHA
 
-- [ ] **Code Quality and Linting**
+- [x] **Code Quality and Linting**
 
-  - [ ] ESLint and Prettier setup for JavaScript
-    - [ ] Install `eslint` and `prettier` as dev dependencies
-    - [ ] Create `.eslintrc.json` and `.prettierrc` configuration files
-    - [ ] Integrate with code editors or IDEs (e.g., VSCode)
-    - [ ] Add linting and formatting scripts to `package.json`
-  - [ ] Python linting with `flake8` and `black`
-    - [ ] Install `flake8` and `black` for linting and formatting Python code
-    - [ ] Create `setup.cfg` or `.flake8` for configuration
-    - [ ] Integrate with code editors or IDEs
-    - [ ] Set up pre-commit hooks for automatic linting on commit
+  - [x] ESLint and Prettier setup for JavaScript
+    - [x] Install `eslint` and `prettier` as dev dependencies
+    - [x] Create `.eslintrc.json` and `.prettierrc` configuration files
+    - [x] Integrate with code editors or IDEs (e.g., VSCode)
+    - [x] Add linting and formatting scripts to `package.json`
+  - [x] Python linting with `flake8` and `black`
+    - [x] Install `flake8` and `black` for linting and formatting Python code
+    - [x] Create `setup.cfg` or `.flake8` for configuration
+    - [x] Integrate with code editors or IDEs
+    - [x] Set up pre-commit hooks for automatic linting on commit
   - [ ] TypeScript configuration
     - [ ] Install TypeScript and configure `tsconfig.json`
     - [ ] Migrate React components to TypeScript incrementally
     - [ ] Update build and testing scripts to handle TypeScript
-  - [ ] Testing frameworks setup
-    - [ ] Install `pytest` and `pytest-django` for backend testing
-    - [ ] Install `Jest` and `React Testing Library` for frontend testing
-    - [ ] Configure testing environments and initial test cases
+  - [x] Testing frameworks setup
+    - [x] Install `pytest` and `pytest-django` for backend testing
+    - [x] Install `Jest` and `React Testing Library` for frontend testing
+    - [x] Configure testing environments and initial test cases
     - [ ] Set up code coverage reporting tools
 
 ---
@@ -522,7 +522,3 @@
   - [ ] Encourage team members to follow the contributing guidelines
 
 ---
-
-I have added sub-versions to the section headings as requested and included a new section at the end for pushing the project to GitHub. The table of contents has been updated accordingly to reflect these changes.
-
-If there's anything else you'd like me to adjust or include, please let me know!

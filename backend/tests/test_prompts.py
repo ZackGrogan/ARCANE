@@ -1,5 +1,5 @@
 import unittest
-from app.ai_services import prompts
+from backend.app.ai_services import prompts
 
 class TestPromptManagement(unittest.TestCase):
 

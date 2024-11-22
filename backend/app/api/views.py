@@ -8,6 +8,8 @@ from backend.app.ai_services.gemini import GoogleGeminiProClient
 from backend.app.ai_services.flux import FLUXClient
 from backend.app.ai_services.prompts import get_prompt
 import logging
+from rest_framework import status
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -44,19 +46,33 @@ class NPCViewSet(viewsets.ModelViewSet):
         try:
             name = ai_client.generate_name(prompt)
             backstory = ai_client.generate_backstory(prompt)
-            portrait_url = flux_client.generate_profile_picture(prompt)
         except Exception as e:
-            logger.error(f"AI service error: {e}")
-            return Response({'error': 'Failed to generate NPC details. Please try again later.'}, status=500)
+            logger.error(f"AI client error: {e}")
+            return Response({'error': 'Failed to generate NPC details.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        npc = NPC.objects.create(
-            name=name,
-            backstory=backstory,
-            portrait_url=portrait_url,
-            # Include additional fields as necessary
-        )
+        try:
+            portrait_url = flux_client.generate_profile_picture(prompt)
+            if portrait_url:
+                npc = NPC.objects.create(
+                    name=name,
+                    backstory=backstory,
+                    # Additional fields...
+                )
+                local_image_path = os.path.join('media', f"npc_{npc.id}_portrait.jpg")
+                flux_client.download_and_process_image(portrait_url, local_image_path)
+                npc.portrait_url = local_image_path
+                npc.save()
+        except Exception as e:
+            logger.error(f"FLUX client error: {e}")
+            npc = NPC.objects.create(
+                name=name,
+                backstory=backstory,
+                portrait_url=None,
+                # Additional fields...
+            )
+
         serializer = self.get_serializer(npc)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class EncounterViewSet(viewsets.ModelViewSet):
     queryset = Encounter.objects.all()

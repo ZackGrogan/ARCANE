@@ -204,32 +204,32 @@
 
 ### FLUX Integration v0.3.3-ALPHA
 
-- [ ] **API Configuration**
+- [x] **API Configuration**
 
-  - [ ] Obtain FLUX API keys and configure environment variables
-  - [ ] Write a client class (`FLUXClient`) extending `AIServiceInterface`
-  - [ ] Handle authentication and session management
+  - [x] Obtain FLUX API keys and configure environment variables
+  - [x] Write a client class (`FLUXClient`) extending `AIServiceInterface`
+  - [x] Handle authentication and session management
 
-- [ ] **Portrait Generation**
+- [x] **Portrait Generation**
 
-  - [ ] Implement `generate_profile_picture` method
-    - [ ] Develop prompts for generating character portraits
-    - [ ] Handle different styles or customization options
-  - [ ] Save generated images and link them to NPC profiles
-    - [ ] Store images securely and efficiently
-    - [ ] Implement image cleanup for failed attempts
+  - [x] Implement `generate_profile_picture` method
+    - [x] Develop prompts for generating character portraits
+    - [x] Handle different styles or customization options
+  - [x] Save generated images and link them to NPC profiles
+    - [x] Store images securely and efficiently
+    - [x] Implement image cleanup for failed attempts
 
-- [ ] **Image Processing**
+- [x] **Image Processing**
 
-  - [ ] Optimize images for web use (compression, resizing)
-  - [ ] Generate thumbnails and different resolutions
-  - [ ] Handle image format conversions if necessary
+  - [x] Optimize images for web use (compression, resizing)
+  - [x] Generate thumbnails and different resolutions
+  - [x] Handle image format conversions if necessary
 
-- [ ] **Error Handling**
+- [x] **Error Handling**
 
-  - [ ] Manage API errors and service downtime
-  - [ ] Implement graceful degradation of features
-  - [ ] Notify users of issues and suggest alternatives
+  - [x] Manage API errors and service downtime
+  - [x] Implement graceful degradation of features
+  - [x] Notify users of issues and suggest alternatives
 
 ---
 

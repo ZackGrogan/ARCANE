@@ -4,9 +4,9 @@ from unittest.mock import patch
 import http.client
 import json
 
-from app.utils.dnd_api_client import DnDApiClient
-from app.models.npc import NPC
-from app.models.encounter import Encounter
+from backend.app.utils.dnd_api_client import DnDApiClient
+from backend.app.models.npc import NPC
+from backend.app.models.encounter import Encounter
 
 class TestDnDApiIntegration(unittest.TestCase):
     @patch('http.client.HTTPConnection')

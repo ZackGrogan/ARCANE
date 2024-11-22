@@ -18,6 +18,23 @@
 - **Backend**: `python manage.py runserver`
 - **Frontend**: `npm start`
 
+## Development Tools Setup
+
+### JavaScript
+- **ESLint and Prettier**: Installed as dev dependencies. Use `npm run lint` to run ESLint and `npm run format` to run Prettier.
+
+### Python
+- **Flake8 and Black**: Installed for linting and formatting Python code. Configuration is set in `setup.cfg`.
+
+### Testing
+- **Backend**: Pytest and pytest-django are installed for testing Django applications.
+- **Frontend**: Jest and React Testing Library are installed for testing React components.
+
+### Running Linting and Testing Scripts
+- **Linting**: Run `npm run lint` for JavaScript and `flake8` for Python.
+- **Formatting**: Run `npm run format` for JavaScript and `black` for Python.
+- **Testing**: Run `pytest` for backend tests and `npm test` for frontend tests.
+
 ## Contribution Guidelines
 - Fork the repository and create a new branch for your feature or bug fix.
 - Ensure code quality by running linting and tests before committing.

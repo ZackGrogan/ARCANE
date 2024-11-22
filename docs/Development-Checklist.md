@@ -142,17 +142,17 @@
 
 ### Integration with External APIs v0.2.3-ALPHA
 
-- [ ] **D&D 5e API Integration**
+- [x] **D&D 5e API Integration**
 
-  - [ ] Implement utility functions to fetch data from the D&D 5e API
-    - [ ] Functions for retrieving monster data, spells, equipment, etc.
-    - [ ] Cache API responses to reduce redundant calls
-  - [ ] Integrate data into NPC and Encounter models
-    - [ ] Allow selection of monsters and items from the API data
-    - [ ] Handle data parsing and mapping to internal models
-  - [ ] Develop error handling for API failures
-    - [ ] Implement retries and fallbacks
-    - [ ] Log API errors for analysis
+  - [x] Implement utility functions to fetch data from the D&D 5e API
+    - [x] Functions for retrieving monster data, spells, equipment, etc.
+    - [x] Cache API responses to reduce redundant calls
+  - [x] Integrate data into NPC and Encounter models
+    - [x] Allow selection of monsters and items from the API data
+    - [x] Handle data parsing and mapping to internal models
+  - [x] Develop error handling for API failures
+    - [x] Implement retries and fallbacks
+    - [x] Log API errors for analysis
 
 ---
 

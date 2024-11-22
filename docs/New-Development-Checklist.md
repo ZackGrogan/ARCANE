@@ -86,22 +86,24 @@ This checklist outlines the development roadmap for the ARCANE project, incorpor
 
 ## v0.5.0-BETA - AI Services Integration
 ### AI Service Implementation v0.5.1-BETA
-- [ ] Integrate AI Services
-- [ ] Update AI service clients for Flask backend
-- [ ] Implement abstract base classes for AI services
-- [ ] Securely handle API keys and configurations
+- [x] Update AI service clients to be compatible with Flask.
+- [x] Implement abstract base classes for AI services.
+- [x] Securely handle API keys using environment variables.
+- [x] Implement the `GeminiService` class for name and backstory generation.
+- [x] Handle API responses and errors for Gemini integration.
+- [x] Integrate Gemini with NPC creation workflows.
+- [x] Implement the `FLUXService` class for profile picture generation.
+- [x] Integrate FLUX image generation into NPC profiles.
+- [x] Update NPC model to store the generated profile picture URL.
 
 ### Google Gemini Pro Integration v0.5.2-BETA
-- [ ] Implement Gemini Pro Client
-- [ ] Set up API calls for name and backstory generation
-- [ ] Handle API responses and errors gracefully
-- [ ] Integrate with NPC creation forms and workflows
+- [x] Set up API calls for name and backstory generation
+- [x] Handle API responses and errors gracefully
 
 ### FLUX Integration v0.5.3-BETA
-- [ ] Implement FLUX Client
-- [ ] Set up API calls for profile picture generation
-- [ ] Integrate image generation into NPC profiles
-- [ ] Ensure compliance with FLUX API terms of use
+- [x] Set up API calls for profile picture generation
+- [x] Integrate image generation into NPC profiles
+- [x] Ensure compliance with FLUX API terms of use
 
 ## v0.6.0-BETA - Feature Enhancements and UI Improvements
 ### Advanced Features Remake v0.6.1-BETA

@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 from backend.app.utils.dnd_api_client import DnDApiClient
 
 class NPC:
-    def __init__(self, mongo: PyMongo, name: str, race: str, npc_class: str, alignment: str, level: int, background: str, personality: str, abilities: Dict[str, int], skills: List[str], equipment: List[str], description: str, portrait_url: str, spells: List[Dict] = None, equipment_data: List[Dict] = None):
+    def __init__(self, mongo: PyMongo, name: str, race: str, npc_class: str, alignment: str, level: int, background: str, personality: str, abilities: Dict[str, int], skills: List[str], equipment: List[str], description: str, portrait_url: str = '', spells: List[Dict] = None, equipment_data: List[Dict] = None):
         self.mongo = mongo
         self.name = name
         self.race = race

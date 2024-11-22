@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}NPC List{% endblock %}
+{% block content %}
+<h1>NPC List</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Race</th>
+            <th>Class</th>
+            <th>Alignment</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for npc in npcs %}
+        <tr>
+            <td>{{ npc.name }}</td>
+            <td>{{ npc.race }}</td>
+            <td>{{ npc.class_type }}</td>
+            <td>{{ npc.alignment }}</td>
+            <td>
+                <a href="/npcs/view/{{ npc.id }}" class="btn btn-primary">View</a>
+                <a href="/npcs/edit/{{ npc.id }}" class="btn btn-secondary">Edit</a>
+                <a href="/npcs/delete/{{ npc.id }}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,8 +1,10 @@
 from typing import Dict, List
+from flask_pymongo import PyMongo
 from backend.app.utils.dnd_api_client import DnDApiClient
 
 class NPC:
-    def __init__(self, name: str, race: str, class_type: str, level: int, background: str, personality: str, abilities: Dict[str, int], skills: List[str], equipment: List[str], description: str, portrait_url: str, spells: List[Dict] = None, equipment_data: List[Dict] = None):
+    def __init__(self, mongo: PyMongo, name: str, race: str, class_type: str, level: int, background: str, personality: str, abilities: Dict[str, int], skills: List[str], equipment: List[str], description: str, portrait_url: str, spells: List[Dict] = None, equipment_data: List[Dict] = None):
+        self.mongo = mongo
         self.name = name
         self.race = race
         self.class_type = class_type
@@ -16,6 +18,9 @@ class NPC:
         self.portrait_url = portrait_url
         self.spells = spells if spells is not None else []
         self.equipment_data = equipment_data if equipment_data is not None else []
+
+    def save(self):
+        self.mongo.db.npcs.insert_one(self.__dict__)
 
     def calculate_attack_bonus(self):
         # Example calculation, replace with actual logic

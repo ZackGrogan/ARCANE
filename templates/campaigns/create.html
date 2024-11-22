@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Create Campaign{% endblock %}
+{% block content %}
+<h1>Create Campaign</h1>
+<form method="POST" action="/campaigns/create">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.title.label }}
+        {{ form.title(class_='form-control') }}
+        {% for error in form.title.errors %}
+        <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.setting.label }}
+        {{ form.setting(class_='form-control') }}
+        {% for error in form.setting.errors %}
+        <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+{% endblock %}

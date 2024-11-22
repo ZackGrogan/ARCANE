@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Campaign List{% endblock %}
+{% block content %}
+<h1>Campaign List</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Setting</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for campaign in campaigns %}
+        <tr>
+            <td>{{ campaign.title }}</td>
+            <td>{{ campaign.setting }}</td>
+            <td>
+                <a href="/campaigns/view/{{ campaign.id }}" class="btn btn-primary">View</a>
+                <a href="/campaigns/edit/{{ campaign.id }}" class="btn btn-secondary">Edit</a>
+                <a href="/campaigns/delete/{{ campaign.id }}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

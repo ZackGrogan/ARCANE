@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Encounter List{% endblock %}
+{% block content %}
+<h1>Encounter List</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Difficulty</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for encounter in encounters %}
+        <tr>
+            <td>{{ encounter.title }}</td>
+            <td>{{ encounter.difficulty }}</td>
+            <td>
+                <a href="/encounters/view/{{ encounter.id }}" class="btn btn-primary">View</a>
+                <a href="/encounters/edit/{{ encounter.id }}" class="btn btn-secondary">Edit</a>
+                <a href="/encounters/delete/{{ encounter.id }}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

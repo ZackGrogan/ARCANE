@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}View NPC{% endblock %}
+{% block content %}
+<h1>{{ npc.name }}</h1>
+<ul>
+    <li><strong>Race:</strong> {{ npc.race }}</li>
+    <li><strong>Class:</strong> {{ npc.class_type }}</li>
+    <li><strong>Alignment:</strong> {{ npc.alignment }}</li>
+    <li><strong>Description:</strong> {{ npc.description }}</li>
+</ul>
+<a href="/npcs/edit/{{ npc.id }}" class="btn btn-secondary">Edit</a>
+<a href="/npcs/delete/{{ npc.id }}" class="btn btn-danger">Delete</a>
+{% endblock %}

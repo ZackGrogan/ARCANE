@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}View Campaign{% endblock %}
+{% block content %}
+<h1>{{ campaign.title }}</h1>
+<ul>
+    <li><strong>Setting:</strong> {{ campaign.setting }}</li>
+    <li><strong>Description:</strong> {{ campaign.description }}</li>
+</ul>
+<a href="/campaigns/edit/{{ campaign.id }}" class="btn btn-secondary">Edit</a>
+<a href="/campaigns/delete/{{ campaign.id }}" class="btn btn-danger">Delete</a>
+{% endblock %}

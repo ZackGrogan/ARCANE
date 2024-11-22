@@ -237,27 +237,24 @@
 
 ### User Interface Development v0.4.1-BETA
 
-- [ ] **Core UI Components**
-
-  - [ ] **Navigation System**
-    - [ ] Implement a responsive navigation bar with links to main sections
-    - [ ] Use React Router for client-side routing
-    - [ ] Ensure accessibility and keyboard navigation support
-  - [ ] **Dashboard**
-    - [ ] Design a user dashboard displaying summaries and quick access links
-    - [ ] Include recent NPCs, encounters, campaigns, and notifications
-    - [ ] Implement widgets or cards for visual appeal
-  - [ ] **NPC Forms**
-    - [ ] Create forms for manual NPC creation with all necessary fields
-    - [ ] Implement AI-assisted NPC creation interface with prompt input
-    - [ ] Validate inputs and provide real-time feedback
-    - [ ] Include options to preview AI-generated content before saving
-  - [ ] **Encounter Builder**
-    - [ ] Develop an interactive interface for creating encounters
-    - [ ] Allow selection of monsters, environment settings, and loot
-    - [ ] Integrate AI suggestions for dynamic content
-    - [ ] Provide difficulty calculations and balancing tools
-
+- [x] **Navigation System**
+  - [x] Implement a responsive navigation bar with links to main sections
+  - [x] Use React Router for client-side routing
+  - [x] Ensure accessibility and keyboard navigation support
+- [x] **Dashboard**
+  - [x] Design a user dashboard displaying summaries and quick access links
+  - [x] Include recent NPCs, encounters, campaigns, and notifications
+  - [x] Implement widgets or cards for visual appeal
+- [x] **NPC Forms**
+  - [x] Create forms for manual NPC creation with all necessary fields
+  - [x] Implement AI-assisted NPC creation interface with prompt input
+  - [x] Validate inputs and provide real-time feedback
+  - [x] Include options to preview AI-generated content before saving
+- [x] **Encounter Builder**
+  - [x] Develop an interactive interface for creating encounters
+  - [x] Allow selection of monsters, environment settings, and loot
+  - [x] Integrate AI suggestions for dynamic content
+  - [x] Provide difficulty calculator
 
 ### State Management v0.4.2-BETA
 

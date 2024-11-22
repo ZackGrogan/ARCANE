@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}View Encounter{% endblock %}
+{% block content %}
+<h1>{{ encounter.title }}</h1>
+<ul>
+    <li><strong>Difficulty:</strong> {{ encounter.difficulty }}</li>
+    <li><strong>Description:</strong> {{ encounter.description }}</li>
+</ul>
+<a href="/encounters/edit/{{ encounter.id }}" class="btn btn-secondary">Edit</a>
+<a href="/encounters/delete/{{ encounter.id }}" class="btn btn-danger">Delete</a>
+{% endblock %}

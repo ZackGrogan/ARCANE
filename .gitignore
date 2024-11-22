@@ -7,3 +7,71 @@ __pycache__/
 .DS_Store
 .vscode/
 env/
+
+# Node.js related
+node_modules/
+package-lock.json
+
+# Python related
+venv/
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+
+# IDE specific
+.vscode/
+
+# System files
+.DS_Store
+
+# Miscellaneous
+env/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Backup files
+*.swp
+*.swo
+*.swn
+
+# Compiled files
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Coverage reports
+.coverage
+coverage.xml
+
+# Test output
+.junit
+
+# Miscellaneous
+*.out
+*.err
+
+# Build directories
+build/
+dist/
+
+# Flask specific
+instance/
+*.db
+
+# MacOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+
+# JetBrains specific
+.idea/

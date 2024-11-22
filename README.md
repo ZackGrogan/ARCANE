@@ -4,52 +4,28 @@
 
 ### Backend Setup
 1. Ensure Python 3.10 or above is installed.
-2. Navigate to the `backend` directory.
-3. Create a virtual environment: `python -m venv venv`
-4. Activate the virtual environment: `source venv/bin/activate` (Linux/Mac) or `venv\Scripts\activate` (Windows)
-5. Install dependencies: `pip install -r requirements.txt`
-
-### Frontend Setup
-1. Ensure Node.js v18 and npm are installed.
-2. Navigate to the `frontend` directory.
-3. Install dependencies: `npm install`
+2. Create a virtual environment: `python -m venv venv`
+3. Activate the virtual environment: `source venv/bin/activate` (Linux/Mac) or `venv\Scripts\activate` (Windows)
+4. Install dependencies: `pip install -r requirements.txt`
 
 ### Running the Project
-- **Backend**: `python manage.py runserver`
-- **Frontend**: `npm start`
+- Start the Flask development server: `flask run`
 
 ## Development Tools Setup
 
 ### JavaScript
-- **ESLint and Prettier**: Installed as dev dependencies. Use `npm run lint` to run ESLint and `npm run format` to run Prettier.
+- **ESLint and Prettier**: Configure for any client-side JS in the `static/js` directory.
 
 ### Python
-- **Flake8 and Black**: Installed for linting and formatting Python code. Configuration is set in `setup.cfg`.
+- **Flake8 and Black**: Use for linting and formatting Python code.
 
 ### Testing
-- **Backend**: Pytest and pytest-django are installed for testing Django applications.
-- **Frontend**: Jest and React Testing Library are installed for testing React components.
+- **Backend**: Set up `pytest` for backend testing.
 
-### Running Linting and Testing Scripts
-- **Linting**: Run `npm run lint` for JavaScript and `flake8` for Python.
-- **Formatting**: Run `npm run format` for JavaScript and `black` for Python.
-- **Testing**: Run `pytest` for backend tests and `npm test` for frontend tests.
+## Environment Variables
+- Use the `.env` file to manage environment variables.
 
 ## Contribution Guidelines
 - Fork the repository and create a new branch for your feature or bug fix.
 - Ensure code quality by running linting and tests before committing.
 - Submit a pull request for review.
-
-## Testing
-- **Backend**: Run tests using `pytest`.
-- **Frontend**: Run tests using `npm test`.
-
-## Environment Variables
-- Use the `.env` file to manage environment variables.
-
-## Code Quality
-- **Backend**: Use `flake8` and `black` for linting and formatting.
-- **Frontend**: Use `eslint` and `prettier` for linting and formatting.
-
-## Documentation
-- API documentation is generated using Swagger or ReDoc.

@@ -1,4 +1,4 @@
-from .interface import AIServiceInterface, AIServiceError
+from ..ai_services.flux.interface import AIServiceInterface, AIServiceError
 import requests
 import os
 import logging

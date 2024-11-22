@@ -1,19 +1,19 @@
-import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
-
 import unittest
 from unittest.mock import patch
-import requests
-from backend.app.utils.dnd_api_client import DnDApiClient
-from backend.models.npc import NPC
-from backend.models.encounter import Encounter
+import http.client
+import json
 
-class DnDApiIntegrationTestCase(unittest.TestCase):
-    @patch('requests.get')
-    def test_get_monster_success(self, mock_get):
-        mock_get.return_value.status_code = 200
-        mock_get.return_value.json.return_value = {'name': 'Orc', 'hit_points': 15}
+from app.utils.dnd_api_client import DnDApiClient
+from app.models.npc import NPC
+from app.models.encounter import Encounter
+
+class TestDnDApiIntegration(unittest.TestCase):
+    @patch('http.client.HTTPConnection')
+    def test_get_monster_success(self, mock_http_conn):
+        mock_response = mock_http_conn.return_value.getresponse.return_value
+        mock_response.status = 200
+        mock_response.read.return_value = b'{"name": "Orc", "hit_points": 15}'
         client = DnDApiClient()
         result = client.get_monster('orc')
         self.assertEqual(result['name'], 'Orc')

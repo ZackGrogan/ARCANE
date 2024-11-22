@@ -6,6 +6,7 @@ from .serializers import NPCSerializer, EncounterSerializer, CampaignSerializer
 from rest_framework.decorators import action
 from backend.app.ai_services.gemini import GoogleGeminiProClient
 from backend.app.ai_services.flux import FLUXClient
+from backend.app.ai_services.prompts import get_prompt
 import logging
 
 logger = logging.getLogger(__name__)
@@ -33,7 +34,10 @@ class NPCViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def generate(self, request):
-        prompt = request.data.get('prompt', '')
+        prompt_key = request.data.get('prompt_key', 'name_generation')
+        user_prompt = request.data.get('prompt', '')
+        prompt = get_prompt(prompt_key, user_prompt)
+
         ai_client = GoogleGeminiProClient()
         flux_client = FLUXClient()
 
@@ -43,7 +47,7 @@ class NPCViewSet(viewsets.ModelViewSet):
             portrait_url = flux_client.generate_profile_picture(prompt)
         except Exception as e:
             logger.error(f"AI service error: {e}")
-            return Response({'error': 'Failed to generate NPC details.'}, status=500)
+            return Response({'error': 'Failed to generate NPC details. Please try again later.'}, status=500)
 
         npc = NPC.objects.create(
             name=name,

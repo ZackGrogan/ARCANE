@@ -175,32 +175,32 @@
 
 ### Gemini Pro Integration v0.3.2-ALPHA
 
-- [ ] **API Setup and Authentication**
+- [x] **API Setup and Authentication**
 
-  - [ ] Obtain API keys and set them as environment variables
-  - [ ] Write a client class (`GoogleGeminiProClient`) extending `AIServiceInterface`
-  - [ ] Implement authentication mechanisms required by the API
+  - [x] Obtain API keys and set them as environment variables
+  - [x] Write a client class (`GoogleGeminiProClient`) extending `AIServiceInterface`
+  - [x] Implement authentication mechanisms required by the API
 
-- [ ] **NPC Generation Service**
+- [x] **NPC Generation Service**
 
-  - [ ] Implement `generate_name` and `generate_backstory` methods
-    - [ ] Develop prompt templates for generating names and backstories
-    - [ ] Parse and validate API responses
-  - [ ] Integrate with NPC creation endpoints
-    - [ ] Add options to use AI-generated data when creating NPCs
-    - [ ] Allow users to input custom prompts
+  - [x] Implement `generate_name` and `generate_backstory` methods
+    - [x] Develop prompt templates for generating names and backstories
+    - [x] Parse and validate API responses
+  - [x] Integrate with NPC creation endpoints
+    - [x] Add options to use AI-generated data when creating NPCs
+    - [x] Allow users to input custom prompts
 
-- [ ] **Prompt Engineering System**
+- [x] **Prompt Engineering System**
 
-  - [ ] Create a system for managing and customizing prompts
-    - [ ] Store default prompts and allow user modifications
-    - [ ] Provide templates for different NPC types or themes
+  - [x] Create a system for managing and customizing prompts
+    - [x] Store default prompts and allow user modifications
+    - [x] Provide templates for different NPC types or themes
 
-- [ ] **Error Handling**
-  - [ ] Implement error handling for API requests
-    - [ ] Handle network errors, timeouts, and invalid responses
-  - [ ] Log errors with context for debugging
-  - [ ] Provide user-friendly error messages and fallback options
+- [x] **Error Handling**
+  - [x] Implement error handling for API requests
+    - [x] Handle network errors, timeouts, and invalid responses
+  - [x] Log errors with context for debugging
+  - [x] Provide user-friendly error messages and fallback options
 
 ### FLUX Integration v0.3.3-ALPHA
 

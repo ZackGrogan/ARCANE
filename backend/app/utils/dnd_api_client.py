@@ -1,7 +1,7 @@
 import requests
 from functools import lru_cache
-from retrying import retry
 import logging
+import retrying
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ class DnDApiClient:
         pass
 
     @lru_cache(maxsize=128)
-    @retry(stop_max_attempt_number=3, wait_exponential_multiplier=1000)
+    @retrying.retry(stop_max_attempt_number=3, wait_exponential_multiplier=1000)
     def get_monster(self, monster_name):
         url = f"{self.BASE_URL}monsters/{monster_name}"
         response = requests.get(url)
@@ -26,7 +26,7 @@ class DnDApiClient:
             raise ApiError(f"Error fetching monster: {monster_name}")
 
     @lru_cache(maxsize=128)
-    @retry(stop_max_attempt_number=3, wait_exponential_multiplier=1000)
+    @retrying.retry(stop_max_attempt_number=3, wait_exponential_multiplier=1000)
     def get_spell(self, spell_name):
         url = f"{self.BASE_URL}spells/{spell_name}"
         response = requests.get(url)
@@ -37,7 +37,7 @@ class DnDApiClient:
             raise ApiError(f"Error fetching spell: {spell_name}")
 
     @lru_cache(maxsize=128)
-    @retry(stop_max_attempt_number=3, wait_exponential_multiplier=1000)
+    @retrying.retry(stop_max_attempt_number=3, wait_exponential_multiplier=1000)
     def get_equipment(self, equipment_name):
         url = f"{self.BASE_URL}equipment/{equipment_name}"
         response = requests.get(url)

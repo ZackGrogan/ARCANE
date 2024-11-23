@@ -106,13 +106,42 @@ def get_encounters():
     encounters = mongo.db.encounters.find()
     return jsonify([encounter for encounter in encounters]), 200
 
+@encounter_blueprint.route('/encounters/<title>', methods=['GET'])
+def get_encounter(title):
+    encounter = Encounter.get_encounter(mongo, title)
+    if encounter:
+        return jsonify(encounter), 200
+    return jsonify({'error': 'Encounter not found'}), 404
+
+@encounter_blueprint.route('/encounters/<title>', methods=['PUT'])
+def update_encounter(title):
+    updates = request.json
+    encounter = Encounter.get_encounter(mongo, title)
+    if encounter:
+        Encounter(mongo, **encounter).update(updates)
+        return jsonify({'message': 'Encounter updated successfully'}), 200
+    return jsonify({'error': 'Encounter not found'}), 404
+
+@encounter_blueprint.route('/encounters/<title>', methods=['DELETE'])
+def delete_encounter(title):
+    encounter = Encounter.get_encounter(mongo, title)
+    if encounter:
+        Encounter(mongo, **encounter).delete()
+        return jsonify({'message': 'Encounter deleted successfully'}), 200
+    return jsonify({'error': 'Encounter not found'}), 404
+
+@encounter_blueprint.route('/encounters', methods=['GET'])
+def list_encounters():
+    encounters = Encounter.list_encounters(mongo)
+    return jsonify(encounters), 200
+
 @encounter_blueprint.route('/encounters/edit/<encounter_id>', methods=['GET', 'POST'])
 def edit_encounter(encounter_id):
     # Logic for editing an encounter
     pass
 
 @encounter_blueprint.route('/encounters/delete/<encounter_id>', methods=['POST'])
-def delete_encounter(encounter_id):
+def delete_encounter_id(encounter_id):
     # Logic for deleting an encounter
     pass
 
@@ -123,6 +152,35 @@ def create_campaign():
     campaign = Campaign(mongo, **data)
     campaign.save()
     return jsonify({'message': 'Campaign created successfully'}), 201
+
+@campaign_blueprint.route('/campaigns/<title>', methods=['GET'])
+def get_campaign(title):
+    campaign = Campaign.get_campaign(mongo, title)
+    if campaign:
+        return jsonify(campaign), 200
+    return jsonify({'error': 'Campaign not found'}), 404
+
+@campaign_blueprint.route('/campaigns/<title>', methods=['PUT'])
+def update_campaign(title):
+    updates = request.json
+    campaign = Campaign.get_campaign(mongo, title)
+    if campaign:
+        Campaign(mongo, **campaign).update(updates)
+        return jsonify({'message': 'Campaign updated successfully'}), 200
+    return jsonify({'error': 'Campaign not found'}), 404
+
+@campaign_blueprint.route('/campaigns/<title>', methods=['DELETE'])
+def delete_campaign(title):
+    campaign = Campaign.get_campaign(mongo, title)
+    if campaign:
+        Campaign(mongo, **campaign).delete()
+        return jsonify({'message': 'Campaign deleted successfully'}), 200
+    return jsonify({'error': 'Campaign not found'}), 404
+
+@campaign_blueprint.route('/campaigns', methods=['GET'])
+def list_campaigns():
+    campaigns = Campaign.list_campaigns(mongo)
+    return jsonify(campaigns), 200
 
 @campaign_blueprint.route('/campaigns', methods=['GET'])
 def get_campaigns():
@@ -135,6 +193,6 @@ def edit_campaign(campaign_id):
     pass
 
 @campaign_blueprint.route('/campaigns/delete/<campaign_id>', methods=['POST'])
-def delete_campaign(campaign_id):
+def delete_campaign_id(campaign_id):
     # Logic for deleting a campaign
     pass

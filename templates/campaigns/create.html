@@ -1,23 +1,34 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
 {% block title %}Create Campaign{% endblock %}
+
 {% block content %}
 <h1>Create Campaign</h1>
-<form method="POST" action="/campaigns/create">
-    {{ form.hidden_tag() }}
+<form method="POST" action="{{ url_for('create_campaign') }}">
     <div class="form-group">
-        {{ form.title.label }}
-        {{ form.title(class_='form-control') }}
-        {% for error in form.title.errors %}
-        <span class="text-danger">{{ error }}</span>
-        {% endfor %}
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" id="title" name="title" required>
     </div>
     <div class="form-group">
-        {{ form.setting.label }}
-        {{ form.setting(class_='form-control') }}
-        {% for error in form.setting.errors %}
-        <span class="text-danger">{{ error }}</span>
-        {% endfor %}
+        <label for="description">Description:</label>
+        <textarea class="form-control" id="description" name="description" required></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Create</button>
+    <div class="form-group">
+        <label for="start_date">Start Date:</label>
+        <input type="date" class="form-control" id="start_date" name="start_date" required>
+    </div>
+    <div class="form-group">
+        <label for="status">Status:</label>
+        <select class="form-control" id="status" name="status">
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+            <option value="planned">Planned</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="notes">Notes:</label>
+        <textarea class="form-control" id="notes" name="notes"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Campaign</button>
 </form>
 {% endblock %}

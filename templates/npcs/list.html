@@ -1,31 +1,110 @@
 {% extends 'base.html' %}
 {% block title %}NPC List{% endblock %}
 {% block content %}
-<h1>NPC List</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Race</th>
-            <th>Class</th>
-            <th>Alignment</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for npc in npcs %}
-        <tr>
-            <td>{{ npc.name }}</td>
-            <td>{{ npc.race }}</td>
-            <td>{{ npc.class_type }}</td>
-            <td>{{ npc.alignment }}</td>
-            <td>
-                <a href="{{ url_for('npcs.view_npc', npc_id=npc.id) }}" class="btn btn-primary">View</a>
-                <a href="{{ url_for('npcs.edit_npc', npc_id=npc.id) }}" class="btn btn-secondary">Edit</a>
-                <a href="{{ url_for('npcs.delete_npc', npc_id=npc.id) }}" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h2 mb-0">
+                    <i class="bi bi-people-fill me-2"></i>NPCs
+                </h1>
+                <a href="{{ url_for('npcs.create_npc') }}" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i> Create NPC
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Race</th>
+                                    <th scope="col">Class</th>
+                                    <th scope="col" class="d-none d-md-table-cell">Alignment</th>
+                                    <th scope="col" class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for npc in npcs %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-sm me-2 bg-primary-subtle rounded-circle d-flex align-items-center justify-content-center">
+                                                <span class="text-primary">{{ npc.name[:1] }}</span>
+                                            </div>
+                                            {{ npc.name }}
+                                        </div>
+                                    </td>
+                                    <td>{{ npc.race }}</td>
+                                    <td>{{ npc.class_type }}</td>
+                                    <td class="d-none d-md-table-cell">{{ npc.alignment }}</td>
+                                    <td>
+                                        <div class="btn-group float-end">
+                                            <a href="{{ url_for('npcs.view_npc', npc_id=npc.id) }}"
+                                               class="btn btn-sm btn-outline-primary"
+                                               data-bs-toggle="tooltip"
+                                               title="View">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="{{ url_for('npcs.edit_npc', npc_id=npc.id) }}"
+                                               class="btn btn-sm btn-outline-secondary"
+                                               data-bs-toggle="tooltip"
+                                               title="Edit">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal{{ npc.id }}"
+                                                    title="Delete">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="deleteModal{{ npc.id }}" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Delete NPC</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete {{ npc.name }}?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <a href="{{ url_for('npcs.delete_npc', npc_id=npc.id) }}"
+                                                           class="btn btn-danger">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Initialize tooltips -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+});
+</script>
 {% endblock %}

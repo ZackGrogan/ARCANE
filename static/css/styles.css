@@ -1,28 +1,162 @@
+/* Global Styles */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --info-color: #0dcaf0;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
+    min-height: 100vh;
+    background-color: var(--light-color);
 }
 
+/* Typography */
 h1, h2, h3, h4, h5, h6 {
-    color: #333;
+    font-weight: 600;
+    color: var(--dark-color);
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+/* Custom Components */
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
 }
 
+.card {
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+/* Table Styles */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-group .btn {
+    padding: 0.25rem 0.5rem;
+}
+
+.btn i {
+    font-size: 1.1em;
+}
+
+/* Navigation */
 .navbar {
-    background-color: #007bff;
-    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,.075);
 }
 
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-item:active {
+    background-color: var(--primary-color);
+}
+
+/* Footer */
 .footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+}
+
+.footer a {
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.footer a:hover {
+    opacity: 0.8;
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+    .table-responsive {
+        margin: 0 -1rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Dark Mode Styles */
+[data-bs-theme="dark"] {
+    --primary-color: #0d6efd;
+    --light-color: #212529;
+    --dark-color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .card {
+    background-color: #2b3035;
+}
+
+[data-bs-theme="dark"] .table {
+    color: #e9ecef;
+}
+
+[data-bs-theme="dark"] .table-light {
+    background-color: #2b3035;
+    color: #e9ecef;
+}
+
+/* Animations */
+.fade {
+    transition: opacity .15s linear;
+}
+
+.modal.fade .modal-dialog {
+    transition: transform .3s ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

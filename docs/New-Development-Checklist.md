@@ -107,17 +107,40 @@ This checklist outlines the development roadmap for the ARCANE project, incorpor
 
 ## v0.6.0-BETA - Feature Enhancements and UI Improvements
 ### Advanced Features Remake v0.6.1-BETA
-- [ ] Reimplement Advanced Functionalities
-- [ ] Update and enhance campaign management features
-- [ ] Improve encounter generation tools
-- [ ] Integrate AI-assisted content creation throughout the application
+- [x] Implement CRUD operations for encounter management
+- [x] Enhance Encounter model with additional fields and methods
+- [x] Update and enhance campaign management features
+- [x] Improve encounter generation tools
+- [x] Integrate AI-assisted content creation throughout the application
 
 ### UI Enhancements with Bootstrap v0.6.2-BETA
-- [ ] Enhance User Interface
-- [ ] Refine layouts and navigation menus
-- [ ] Implement responsive design practices
-- [ ] Utilize Bootstrap components for better UX
-- [ ] Ensure visual consistency across all templates
+- [x] Enhance User Interface
+  - Enhanced base template with responsive navigation and theme support
+  - Added Bootstrap Icons for improved visual feedback
+  - Implemented dark/light theme switcher
+  - Created responsive navbar with dropdown menus
+  - Added flash message support with dismissible alerts
+  - Enhanced footer with social links and better layout
+  - Improved mobile responsiveness across all templates
+- [x] Refine layouts and navigation menus
+  - Created modern card-based layouts
+  - Implemented responsive tables
+  - Added avatar circles for visual enhancement
+  - Created better action button groups with tooltips
+  - Added confirmation modals for delete actions
+- [x] Implement responsive design practices
+  - Added responsive utilities
+  - Improved mobile view with responsive column hiding
+  - Enhanced table styles for better readability on all devices
+- [x] Utilize Bootstrap components for better UX
+  - Added custom component styles (avatars, cards)
+  - Added smooth transitions and hover effects
+  - Created animation effects for modals and transitions
+- [x] Ensure visual consistency across all templates
+  - Created CSS variables system for consistent theming
+  - Improved typography with better hierarchy
+  - Implemented dark mode support
+  - Added custom scrollbar styles
 
 ## v0.7.0-BETA - Testing and Quality Assurance
 ### Backend Testing v0.7.1-BETA

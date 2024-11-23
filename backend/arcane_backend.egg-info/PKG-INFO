@@ -1,0 +1,103 @@
+Metadata-Version: 2.1
+Name: arcane-backend
+Version: 0.1
+Summary: Backend for the ARCANE D&D NPC Management System
+Author-email: Your Name <your.email@example.com>
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: flask
+Requires-Dist: flask-pymongo
+Requires-Dist: python-dotenv
+Requires-Dist: pytest
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+
+# ARCANE Backend
+
+The backend service for the ARCANE D&D NPC Management System.
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/ARCANE.git
+cd ARCANE/backend
+```
+
+2. Create a virtual environment and activate it:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install the package in development mode:
+```bash
+pip install -e .
+```
+
+## Running the Server
+
+1. Start MongoDB:
+```bash
+mongod --dbpath ./data/db
+```
+
+2. Start the Flask server:
+```bash
+python wsgi.py
+```
+
+The server will start on http://localhost:5000.
+
+## Running Tests
+
+1. Run unit tests:
+```bash
+pytest tests/unit
+```
+
+2. Run integration tests:
+```bash
+pytest tests/integration
+```
+
+3. Run manual tests:
+```bash
+python tests/manual_test.py
+```
+
+## API Documentation
+
+### NPC Endpoints
+
+- `POST /npcs/`: Create a new NPC
+- `GET /npcs/`: Get all NPCs
+- `GET /npcs/{npc_id}`: Get a specific NPC
+- `PUT /npcs/{npc_id}`: Update an NPC
+- `DELETE /npcs/{npc_id}`: Delete an NPC
+- `POST /npcs/{npc_id}/equipment`: Add equipment to an NPC
+- `POST /npcs/{npc_id}/spells`: Add a spell to an NPC
+
+### Campaign Endpoints
+
+- `POST /campaigns/`: Create a new campaign
+- `GET /campaigns/`: Get all campaigns
+- `GET /campaigns/{campaign_id}`: Get a specific campaign
+- `PUT /campaigns/{campaign_id}`: Update a campaign
+- `DELETE /campaigns/{campaign_id}`: Delete a campaign
+
+### Encounter Endpoints
+
+- `POST /encounters/`: Create a new encounter
+- `GET /encounters/`: Get all encounters
+- `GET /encounters/{encounter_id}`: Get a specific encounter
+- `PUT /encounters/{encounter_id}`: Update an encounter
+- `DELETE /encounters/{encounter_id}`: Delete an encounter
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Submit a pull request

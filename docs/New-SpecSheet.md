@@ -34,6 +34,8 @@ AI Services Integration
 
 Map Generation Module
 
+API Documentation
+
 3. Front-End Development
 
 UI Components and Pages
@@ -808,6 +810,146 @@ return send_file(img_io, mimetype='image/png')
 
 return render_template('maps/generate.html')
 
+API Documentation
+
+### Encounters API
+
+#### Endpoints
+
+1. **Create Encounter**
+   - **URL:** `/api/encounters/`
+   - **Method:** `POST`
+   - **Request Body:`
+     ```json
+     {
+       "title": "string",
+       "environment": "string",
+       "party_level": "integer",
+       "difficulty": "string",
+       "description": "string (optional)",
+       "monsters": "array (optional)",
+       "traps": "array (optional)",
+       "notes": "string (optional)"
+     }
+     ```
+   - **Success Response:`
+     - **Code:** 201 CREATED
+     - **Content:`
+       ```json
+       {
+         "_id": "string",
+         "title": "string",
+         "environment": "string",
+         "party_level": "integer",
+         "difficulty": "string",
+         "description": "string",
+         "monsters": "array",
+         "traps": "array",
+         "notes": "string"
+       }
+       ```
+   - **Error Responses:`
+     - **Code:** 409 CONFLICT
+       - **Content:** `{"error": "Encounter with title '[title]' already exists"}`
+     - **Code:** 400 BAD REQUEST
+       - **Content:** `{"error": "Missing required field: [field_name]"}`
+
+2. **Get Encounter**
+   - **URL:** `/api/encounters/<encounter_id>/`
+   - **Method:** `GET'
+   - **Success Response:`
+     - **Code:** 200 OK
+     - **Content:** Same as create response
+   - **Error Response:`
+     - **Code:** 404 NOT FOUND
+       - **Content:** `{"error": "Encounter not found"}`
+     - **Code:** 400 BAD REQUEST
+       - **Content:** `{"error": "Invalid encounter ID"}`
+
+3. **Update Encounter**
+   - **URL:** `/api/encounters/<encounter_id>/'
+   - **Method:** `PUT'
+   - **Request Body:** Same fields as create (all optional)
+   - **Success Response:`
+     - **Code:** 200 OK
+     - **Content:** Updated encounter object
+   - **Error Responses:`
+     - **Code:** 404 NOT FOUND
+       - **Content:** `{"error": "Encounter not found"}`
+     - **Code:** 409 CONFLICT
+       - **Content:** `{"error": "Encounter with title '[title]' already exists"}`
+     - **Code:** 400 BAD REQUEST
+       - **Content:** `{"error": "Invalid encounter ID"}`
+
+4. **Delete Encounter"
+   - **URL:** `/api/encounters/<encounter_id>/'
+   - **Method:** `DELETE'
+   - **Success Response:`
+     - **Code:** 204 NO CONTENT
+   - **Error Responses:`
+     - **Code:** 404 NOT FOUND
+       - **Content:** `{"error": "Encounter not found"}`
+     - **Code:** 400 BAD REQUEST
+       - **Content:** `{"error": "Invalid encounter ID"}`
+
+5. **List Encounters"
+   - **URL:** `/api/encounters/'
+   - **Method:** `GET'
+   - **Success Response:`
+     - **Code:** 200 OK
+     - **Content:** Array of encounter objects
+
+6. **Add Monster to Encounter"
+   - **URL:** `/api/encounters/<encounter_id>/monsters/<monster_name>/'
+   - **Method:** `POST'
+   - **Success Response:`
+     - **Code:** 200 OK
+     - **Content:** Updated encounter object
+   - **Error Responses:`
+     - **Code:** 404 NOT FOUND
+       - **Content:** `{"error": "Encounter not found"}`
+     - **Code:** 400 BAD REQUEST
+       - **Content:** `{"error": "Invalid encounter ID"}`
+
+7. **Remove Monster from Encounter"
+   - **URL:** `/api/encounters/<encounter_id>/monsters/<monster_name>/'
+   - **Method:** `DELETE'
+   - **Success Response:`
+     - **Code:** 200 OK
+     - **Content:** Updated encounter object
+   - **Error Responses:`
+     - **Code:** 404 NOT FOUND
+       - **Content:** `{"error": "Encounter not found"}`
+     - **Code:** 400 BAD REQUEST
+       - **Content:** `{"error": "Invalid encounter ID"}`
+
+### Important Notes
+
+1. **Title Uniqueness:**
+   - Encounter titles must be unique (case-insensitive)
+   - Attempting to create or update an encounter with an existing title will result in a 409 CONFLICT error
+   - Title uniqueness is only checked when creating a new encounter or updating the title field
+
+2. **ObjectId Handling:**
+   - All encounter IDs are MongoDB ObjectIds
+   - IDs are always returned as strings in responses
+   - Invalid ObjectId formats in requests will result in 400 BAD REQUEST errors
+
+3. **Optional Fields:**
+   - When creating an encounter, only `title`, `environment`, `party_level`, and `difficulty` are required
+   - Other fields (`description`, `monsters`, `traps`, `notes`) are optional and will be set to default values if not provided
+   - When updating an encounter, all fields are optional
+
+4. **Monster Management:**
+   - Monsters are added and removed individually through dedicated endpoints
+   - Monster names are validated against the D&D 5e API
+   - Invalid monster names will result in a failure to add the monster
+
+5. **Error Handling:**
+   - All endpoints use consistent error response formats
+   - Errors include descriptive messages to help identify the issue
+   - Server errors (500) include error IDs for tracking in logs
+
 ---
 
 Front-End Development
@@ -828,7 +970,7 @@ Base Template
 
 ARCANE
 
-{% with messages = get_flashed_messages(with_categories=True) %}
+{% with messages = get_flashed_messages(with_categories=true) %}
 
 {% if messages %}
 
@@ -1063,10 +1205,6 @@ assert npc['name'] == 'Test NPC'
 Frontend Test Example
 
 *Use Selenium for browser automation testing.*
-
-*Install Selenium:*
-
-pip install selenium
 
 *tests/test_npc_creation.py
 
@@ -1489,5 +1627,3 @@ Docker Compose
 By adhering to this detailed specification, the ARCANE application will be well-positioned to offer an innovative and comprehensive tool for D&D enthusiasts, combining manual and AI-assisted content generation, encounter creation, campaign management, and our own procedural fantasy map generation within a user-friendly Python-centric platform.
 
 ---
-
-Let me know if there are any specific areas you'd like to adjust further or if you have additional requirements!

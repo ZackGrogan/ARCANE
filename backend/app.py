@@ -1,20 +1,27 @@
+"""Flask application factory."""
 from flask import Flask
 from flask_pymongo import PyMongo
-from .routes import npc_blueprint, encounter_blueprint, campaign_blueprint
+from backend.api.routes import npc_routes, campaign_routes, encounter_routes
 
-# Initialize Flask app
-app = Flask(__name__)
+def create_app(test_config=None):
+    """Create and configure the Flask application."""
+    app = Flask(__name__)
 
-# Load configuration
-app.config.from_pyfile('config.py')
+    # Default configuration
+    app.config.from_mapping(
+        MONGO_URI='mongodb://localhost:27017/arcane_db'
+    )
 
-# Initialize PyMongo
-mongo = PyMongo(app)
+    if test_config is not None:
+        # Load test config if passed in
+        app.config.update(test_config)
 
-# Register Blueprints
-app.register_blueprint(npc_blueprint)
-app.register_blueprint(encounter_blueprint)
-app.register_blueprint(campaign_blueprint)
+    # Initialize MongoDB
+    app.mongo = PyMongo(app)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    # Register blueprints
+    app.register_blueprint(npc_routes.bp)
+    app.register_blueprint(campaign_routes.bp)
+    app.register_blueprint(encounter_routes.bp)
+
+    return app

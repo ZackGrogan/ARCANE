@@ -1,11 +1,9 @@
-"""Backend package initialization."""
 from flask import Flask, jsonify
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from bson import ObjectId
 import json
-from backend.utils.db import init_db
-from backend.utils.json_encoder import MongoJSONEncoder
+from utils.db import init_db
 
 class MongoJSONEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -15,19 +13,13 @@ class MongoJSONEncoder(json.JSONEncoder):
 
 def create_app(test_config=None):
     """Create and configure the Flask application."""
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__)
 
     # Load configuration
     if test_config is None:
         app.config.from_mapping(
             SECRET_KEY='dev',
             MONGO_URI='mongodb://localhost:27017/arcane'
-        )
-    elif isinstance(test_config, str) and test_config == 'testing':
-        app.config.from_mapping(
-            TESTING=True,
-            SECRET_KEY='test',
-            MONGO_URI='mongodb://localhost:27017/test_db'
         )
     else:
         app.config.update(test_config)
@@ -37,14 +29,15 @@ def create_app(test_config=None):
 
     # Initialize extensions
     CORS(app)
-    app.mongo = PyMongo(app)  # Make mongo available in app context
+    mongo = PyMongo(app)
+    app.mongo = mongo  # Make mongo available in app context
 
     # Initialize MongoDB collections
     with app.app_context():
         init_db()
 
     # Register blueprints
-    from backend.api import npc_routes, campaign_routes, encounter_routes
+    from api import npc_routes, campaign_routes, encounter_routes
     app.register_blueprint(npc_routes.bp, url_prefix='/api/npcs')
     app.register_blueprint(campaign_routes.bp, url_prefix='/api/campaigns')
     app.register_blueprint(encounter_routes.bp, url_prefix='/api/encounters')
@@ -56,7 +49,7 @@ def create_app(test_config=None):
 
     @app.errorhandler(400)
     def bad_request_error(error):
-        return jsonify({'error': 'Bad request'}), 400
+        return jsonify({'error': str(error.description)}), 400
 
     @app.errorhandler(500)
     def internal_error(error):

@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import patch, Mock
 from io import BytesIO
-from backend.app.ai_services.flux import FLUXClient, AIServiceError, Image
+from backend.ai_services.flux import FLUXClient, AIServiceError, Image
 
 class TestFLUXClient(unittest.TestCase):
     def setUp(self):
         self.flux_client = FLUXClient()
 
-    @patch('backend.app.ai_services.flux.requests.post')
+    @patch('backend.ai_services.flux.requests.post')
     def test_generate_profile_picture_success(self, mock_post):
         # Mock the API response
         mock_response = Mock()
@@ -27,7 +27,7 @@ class TestFLUXClient(unittest.TestCase):
             timeout=30
         )
 
-    @patch('backend.app.ai_services.flux.requests.get')
+    @patch('backend.ai_services.flux.requests.get')
     def test_download_and_process_image_success(self, mock_get):
         # Mock the image response
         mock_response = Mock()
@@ -36,7 +36,7 @@ class TestFLUXClient(unittest.TestCase):
         mock_get.return_value = mock_response
 
         # Mock Image.open
-        with patch('backend.app.ai_services.flux.Image.open') as mock_open:
+        with patch('backend.ai_services.flux.Image.open') as mock_open:
             mock_image = Mock()
             mock_open.return_value = mock_image
             # Ensure convert returns the same mock_image instance

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from backend.app import mongo
+from backend import mongo
 from apps.maps.map_generator import MapGenerator
 import os
 from PIL import Image

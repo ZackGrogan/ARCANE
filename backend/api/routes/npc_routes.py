@@ -28,7 +28,7 @@ def get_npc(npc_id):
     """Get a specific NPC."""
     npc = NPC.get_by_id(current_app.mongo, npc_id)
     if not npc:
-        raise APIError("NPC not found", status_code=404)
+        raise APIError("NPC not found", 404)
     return jsonify(npc.to_dict())
 
 @bp.route('/', methods=['GET'])
@@ -41,25 +41,31 @@ def get_npcs():
 @bp.route('/<npc_id>/', methods=['PUT'])
 @handle_api_error
 def update_npc(npc_id):
-    """Update a specific NPC."""
-    data = request.get_json()
-    if not data:
-        raise APIError("No data provided", status_code=400)
-
+    """Update an NPC."""
     npc = NPC.get_by_id(current_app.mongo, npc_id)
     if not npc:
-        raise APIError("NPC not found", status_code=404)
+        raise APIError("NPC not found", 404)
 
-    npc.update(data)
-    return jsonify(npc.to_dict())
+    data = request.get_json()
+    if not data:
+        raise APIError("No update data provided", 400)
+
+    try:
+        npc.update(data)
+        return jsonify(npc.to_dict())
+    except ValueError as e:
+        raise APIError(str(e), 400)
+    except Exception as e:
+        raise APIError(f"Failed to update NPC: {str(e)}", 500)
 
 @bp.route('/<npc_id>/', methods=['DELETE'])
 @handle_api_error
 def delete_npc(npc_id):
-    """Delete a specific NPC."""
+    """Delete an NPC."""
     npc = NPC.get_by_id(current_app.mongo, npc_id)
     if not npc:
-        raise APIError("NPC not found", status_code=404)
+        raise APIError("NPC not found", 404)
 
-    npc.delete()
-    return '', 204
+    if npc.delete():
+        return '', 204
+    raise APIError("Failed to delete NPC", 500)

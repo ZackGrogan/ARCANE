@@ -2,6 +2,7 @@
 import json
 from pprint import pprint
 from backend import create_app
+import requests
 
 # Create application and test client globally
 app = create_app({
@@ -10,13 +11,21 @@ app = create_app({
 })
 client = app.test_client()
 
+def print_response(response):
+    print(f"Status: {response.status_code}")
+    print("Response:")
+    try:
+        pprint(response.get_json())
+    except Exception as e:
+        print(f"Error parsing response: {str(e)}")
+
 def test_npc_endpoints():
     """Test NPC endpoints."""
     with app.app_context():
-        print("\n=== Testing NPC Endpoints ===")
+        print("\n=== Testing NPC Endpoints ===\n")
 
         # Test NPC creation with valid data
-        print("\n1. Creating NPC with valid data")
+        print("1. Creating NPC with valid data")
         valid_npc = {
             'name': 'Test NPC',
             'race': 'Human',
@@ -33,15 +42,12 @@ def test_npc_endpoints():
             }
         }
         try:
-            response = client.post('/api/npcs', json=valid_npc)
-            print(f"Status: {response.status_code}")
-            print("Response:")
-            response_data = json.loads(response.data)
-            pprint(response_data)
+            response = client.post('/api/npcs/', json=valid_npc)
+            print_response(response)
+            response_data = response.get_json()
             npc_id = response_data.get('_id')
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON response: {e}")
-            print(f"Raw response: {response.data}")
+        except Exception as e:
+            print(f"Error parsing response: {str(e)}")
             return
 
         # Test NPC creation with invalid data
@@ -50,32 +56,26 @@ def test_npc_endpoints():
             'name': 'Invalid NPC'
         }
         try:
-            response = client.post('/api/npcs', json=invalid_npc)
-            print(f"Status: {response.status_code}")
-            print("Response:")
-            pprint(json.loads(response.data))
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON response: {e}")
-            print(f"Raw response: {response.data}")
+            response = client.post('/api/npcs/', json=invalid_npc)
+            print_response(response)
+        except Exception as e:
+            print(f"Error parsing response: {str(e)}")
 
         # Get all NPCs
         print("\n4. Getting all NPCs")
         try:
-            response = client.get('/api/npcs')
-            print(f"Status: {response.status_code}")
-            print("Response:")
-            pprint(json.loads(response.data))
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON response: {e}")
-            print(f"Raw response: {response.data}")
+            response = client.get('/api/npcs/')
+            print_response(response)
+        except Exception as e:
+            print(f"Error parsing response: {str(e)}")
 
 def test_campaign_endpoints():
     """Test Campaign endpoints."""
     with app.app_context():
-        print("\n=== Testing Campaign Endpoints ===")
+        print("\n=== Testing Campaign Endpoints ===\n")
 
         # Test Campaign creation
-        print("\n1. Creating Campaign")
+        print("1. Creating Campaign")
         campaign_data = {
             'title': 'Test Campaign',
             'description': 'A test campaign',
@@ -84,35 +84,29 @@ def test_campaign_endpoints():
             'notes': 'Test notes'
         }
         try:
-            response = client.post('/api/campaigns', json=campaign_data)
-            print(f"Status: {response.status_code}")
-            print("Response:")
-            response_data = json.loads(response.data)
-            pprint(response_data)
+            response = client.post('/api/campaigns/', json=campaign_data)
+            print_response(response)
+            response_data = response.get_json()
             campaign_id = response_data.get('_id')
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON response: {e}")
-            print(f"Raw response: {response.data}")
+        except Exception as e:
+            print(f"Error parsing response: {str(e)}")
             return
 
         # Get all campaigns
         print("\n2. Getting all campaigns")
         try:
-            response = client.get('/api/campaigns')
-            print(f"Status: {response.status_code}")
-            print("Response:")
-            pprint(json.loads(response.data))
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON response: {e}")
-            print(f"Raw response: {response.data}")
+            response = client.get('/api/campaigns/')
+            print_response(response)
+        except Exception as e:
+            print(f"Error parsing response: {str(e)}")
 
 def test_encounter_endpoints():
     """Test Encounter endpoints."""
     with app.app_context():
-        print("\n=== Testing Encounter Endpoints ===")
+        print("\n=== Testing Encounter Endpoints ===\n")
 
         # Test Encounter creation
-        print("\n1. Creating Encounter")
+        print("1. Creating Encounter")
         encounter_data = {
             'title': 'Test Encounter',
             'environment': 'Forest',
@@ -123,27 +117,21 @@ def test_encounter_endpoints():
             'traps': ['Pit Trap']
         }
         try:
-            response = client.post('/api/encounters', json=encounter_data)
-            print(f"Status: {response.status_code}")
-            print("Response:")
-            response_data = json.loads(response.data)
-            pprint(response_data)
+            response = client.post('/api/encounters/', json=encounter_data)
+            print_response(response)
+            response_data = response.get_json()
             encounter_id = response_data.get('_id')
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON response: {e}")
-            print(f"Raw response: {response.data}")
+        except Exception as e:
+            print(f"Error parsing response: {str(e)}")
             return
 
         # Get all encounters
         print("\n2. Getting all encounters")
         try:
-            response = client.get('/api/encounters')
-            print(f"Status: {response.status_code}")
-            print("Response:")
-            pprint(json.loads(response.data))
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON response: {e}")
-            print(f"Raw response: {response.data}")
+            response = client.get('/api/encounters/')
+            print_response(response)
+        except Exception as e:
+            print(f"Error parsing response: {str(e)}")
 
 def main():
     """Run all manual tests."""

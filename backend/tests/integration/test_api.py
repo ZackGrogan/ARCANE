@@ -76,13 +76,11 @@ def test_update_campaign(client, db, test_campaign):
         'description': 'Updated description',
         'status': 'completed'
     }
-    response = client.put(f'/api/campaigns/{test_campaign["name"]}', json=updates)
+    response = client.put(f'/api/campaigns/{test_campaign["name"]}/', json=updates)
     assert response.status_code == 200
-
-    # Verify update
-    updated = db.campaigns.find_one({'name': test_campaign['name']})
-    assert updated['description'] == 'Updated description'
-    assert updated['status'] == 'completed'
+    data = response.get_json()
+    assert data['description'] == 'Updated description'
+    assert data['status'] == 'completed'
 
 def test_create_encounter(client, test_encounter):
     """Test encounter creation endpoint."""

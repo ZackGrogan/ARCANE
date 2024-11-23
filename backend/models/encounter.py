@@ -3,6 +3,7 @@ from .npc import NPC
 from backend.utils.dnd_api_client import DnDApiClient
 from flask_pymongo import PyMongo
 from bson import ObjectId
+from backend.utils.errors import APIError
 
 class Encounter:
     """Encounter model for managing D&D combat encounters.
@@ -17,7 +18,7 @@ class Encounter:
         party_level (int): Average level of the party
         difficulty (str): Encounter difficulty (easy, medium, hard, deadly)
         description (str): Optional description of the encounter
-        monsters (list): List of monster names from D&D 5e
+        monsters (list): List of monster objects
         traps (list): List of trap objects
         notes (str): Additional notes about the encounter
         _id: MongoDB ObjectId for the encounter
@@ -35,7 +36,7 @@ class Encounter:
             party_level (int): Average level of the party
             difficulty (str): Encounter difficulty
             description (str, optional): Description of the encounter. Defaults to ''.
-            monsters (list, optional): List of monster names. Defaults to None.
+            monsters (list, optional): List of monster objects. Defaults to None.
             traps (list, optional): List of trap objects. Defaults to None.
             notes (str, optional): Additional notes. Defaults to ''.
             _id (ObjectId, optional): MongoDB ObjectId. Defaults to None.
@@ -153,84 +154,63 @@ class Encounter:
         except Exception as e:
             raise RuntimeError(f"Failed to delete encounter: {str(e)}")
 
-    def add_monster(self, monster_name):
+    def add_monster(self, monster_name, quantity=1):
         """Add a monster to the encounter.
-
-        This method validates the monster against the D&D 5e API and updates
-        both the local state and database.
 
         Args:
             monster_name (str): Name of the monster to add
+            quantity (int, optional): Number of monsters to add. Defaults to 1.
 
         Returns:
-            tuple: (bool, str) - Success status and message
+            tuple: (success, message) where success is a boolean and message is a string
 
         Raises:
-            ValueError: If monster_name is invalid or API request fails
-            RuntimeError: If database operation fails
+            APIError: If monster already exists or if there's an error with the DnD API
         """
-        if not self.mongo:
-            from flask import current_app
-            self.mongo = current_app.mongo
+        monster_name = monster_name.strip().title()
 
+        # Check for existing monster
+        if any(m['name'].lower() == monster_name.lower() for m in self.monsters):
+            raise APIError(f"Monster '{monster_name}' already exists in encounter", 400)
+
+        # Get monster details from DnD API
         try:
-            if monster_name not in self.monsters:
-                # Get monster details from DnD API
-                dnd_api = DnDApiClient()
-                try:
-                    monster = dnd_api.get_monster(monster_name)
-                    if not monster:
-                        return False, f"Monster '{monster_name}' not found in DnD API"
-                except Exception as e:
-                    raise ValueError(f"Failed to fetch monster details: {str(e)}")
+            dnd_api = DnDApiClient()
+            monster_details = dnd_api.get_monster(monster_name)
+            if not monster_details:
+                raise APIError(f"Monster '{monster_name}' not found", 404)
 
-                try:
-                    self.monsters.append(monster_name)
-                    self.mongo.db.encounters.update_one(
-                        {'_id': ObjectId(self._id)},
-                        {'$push': {'monsters': monster_name}}
-                    )
-                    return True, f"Successfully added monster '{monster_name}'"
-                except Exception as e:
-                    # Rollback the local state change if db update fails
-                    self.monsters.remove(monster_name)
-                    raise RuntimeError(f"Failed to update database: {str(e)}")
+            monster_entry = {
+                'name': monster_name,
+                'quantity': quantity,
+                'challenge_rating': monster_details.get('challenge_rating', 0),
+                'hit_points': monster_details.get('hit_points', 0)
+            }
 
-            return False, f"Monster '{monster_name}' already exists in encounter"
-        except ValueError as ve:
-            raise ve
-        except RuntimeError as re:
-            raise re
+            self.monsters.append(monster_entry)
+            if self.save():
+                return True, f"Successfully added {quantity} {monster_name}(s)"
+            return False, "Failed to save encounter"
+
+        except APIError:
+            raise
         except Exception as e:
-            raise RuntimeError(f"Unexpected error: {str(e)}")
+            raise APIError(f"Error adding monster: {str(e)}", 500)
 
     def remove_monster(self, monster_name):
-        """Remove a monster from the encounter.
+        """Remove a monster from the encounter."""
+        monster_name = monster_name.strip().title()
 
-        Args:
-            monster_name (str): Name of the monster to remove
+        initial_count = len(self.monsters)
+        self.monsters = [
+            m for m in self.monsters
+            if m['name'].lower() != monster_name.lower()
+        ]
 
-        Returns:
-            bool: True if monster was removed successfully
-
-        Raises:
-            RuntimeError: If database operation fails
-        """
-        try:
-            if not self.mongo:
-                from flask import current_app
-                self.mongo = current_app.mongo
-
-            if monster_name in self.monsters:
-                self.monsters.remove(monster_name)
-                self.mongo.db.encounters.update_one(
-                    {'_id': ObjectId(self._id)},
-                    {'$pull': {'monsters': monster_name}}
-                )
-                return True
+        if len(self.monsters) == initial_count:
             return False
-        except Exception as e:
-            raise RuntimeError(f"Failed to remove monster: {str(e)}")
+
+        return self.save()
 
     @classmethod
     def list_encounters(cls, mongo):
@@ -278,6 +258,37 @@ class Encounter:
             return None
         except Exception as e:
             raise RuntimeError(f"Failed to get encounter: {str(e)}")
+
+    @classmethod
+    def get_by_id(cls, mongo, encounter_id):
+        """Get an encounter by its ID.
+
+        Args:
+            mongo: MongoDB connection instance
+            encounter_id (str): ID of the encounter to retrieve
+
+        Returns:
+            Encounter: The encounter object if found, None otherwise
+        """
+        try:
+            _id = ObjectId(encounter_id)
+            encounter_data = mongo.db.encounters.find_one({'_id': _id})
+            if encounter_data:
+                return cls(
+                    mongo=mongo,
+                    title=encounter_data['title'],
+                    environment=encounter_data['environment'],
+                    party_level=encounter_data['party_level'],
+                    difficulty=encounter_data['difficulty'],
+                    description=encounter_data.get('description', ''),
+                    monsters=encounter_data.get('monsters', []),
+                    traps=encounter_data.get('traps', []),
+                    notes=encounter_data.get('notes', ''),
+                    _id=encounter_data['_id']
+                )
+            return None
+        except Exception:
+            return None
 
     @classmethod
     def from_dict(cls, mongo, data):

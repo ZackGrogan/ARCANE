@@ -56,15 +56,23 @@ class DnDApiClient:
         Raises:
             ApiError: If the API request fails or returns invalid data
         """
-        logger.info('Fetching monster data for: %s', monster_name)
-        url = f"{self.BASE_URL}monsters/{monster_name}"
-        response = requests.get(url)
-        if response.status_code == 200:
-            logger.info('Received monster data: %s', response.json())
-            return response.json()
-        else:
-            logger.error(f"API Error {response.status_code}: {response.text}")
-            raise ApiError(f"Error fetching monster: {monster_name}")
+        try:
+            logger.info('Fetching monster data for: %s', monster_name)
+            # Convert to lowercase and replace spaces with hyphens for API URL
+            formatted_name = monster_name.lower().replace(' ', '-')
+            url = f"{self.BASE_URL}monsters/{formatted_name}"
+            response = requests.get(url)
+            if response.status_code == 200:
+                logger.info('Received monster data: %s', response.json())
+                return response.json()
+            else:
+                logger.error(f"API Error {response.status_code}: {response.text}")
+                raise ApiError(f"Error fetching monster: {monster_name}")
+        except ApiError:
+            raise
+        except Exception as e:
+            logger.error(f"Unexpected error fetching monster: {str(e)}")
+            raise ApiError(f"Unexpected error fetching monster: {str(e)}")
 
     @lru_cache(maxsize=128)
     @retrying.retry(stop_max_attempt_number=3, wait_exponential_multiplier=1000)

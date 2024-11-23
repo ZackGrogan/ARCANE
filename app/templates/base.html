@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-bs-theme="light" x-data="{ darkMode: false }" :class="{ 'dark': darkMode }">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}ARCANE{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+
+    <!-- Custom CSS (Tailwind + Custom) -->
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.9"></script>
+
+    <!-- Custom head block for additional styles/scripts -->
+    {% block head %}{% endblock %}
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 bg-white dark:bg-gray-900" hx-boost="true">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark dark:bg-gray-800">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url_for('main.index') }}">
                     <i class="bi bi-dice-6-fill me-2"></i>ARCANE
@@ -30,33 +43,33 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-people-fill"></i> NPCs
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ url_for('npcs.list_npcs') }}">View All NPCs</a></li>
-                                <li><a class="dropdown-item" href="{{ url_for('npcs.create_npc') }}">Create New NPC</a></li>
+                            <ul class="dropdown-menu dark:bg-gray-700">
+                                <li><a class="dropdown-item dark:text-white dark:hover:bg-gray-600" href="{{ url_for('npcs.list') }}">View All NPCs</a></li>
+                                <li><a class="dropdown-item dark:text-white dark:hover:bg-gray-600" href="{{ url_for('npcs.create') }}">Create New NPC</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-shield-fill"></i> Encounters
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ url_for('encounters.list_encounters') }}">View All Encounters</a></li>
-                                <li><a class="dropdown-item" href="{{ url_for('encounters.create_encounter') }}">Create New Encounter</a></li>
+                            <ul class="dropdown-menu dark:bg-gray-700">
+                                <li><a class="dropdown-item dark:text-white dark:hover:bg-gray-600" href="{{ url_for('encounters.list') }}">View All Encounters</a></li>
+                                <li><a class="dropdown-item dark:text-white dark:hover:bg-gray-600" href="{{ url_for('encounters.create') }}">Create New Encounter</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-book-fill"></i> Campaigns
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ url_for('campaigns.list_campaigns') }}">View All Campaigns</a></li>
-                                <li><a class="dropdown-item" href="{{ url_for('campaigns.create_campaign') }}">Create New Campaign</a></li>
+                            <ul class="dropdown-menu dark:bg-gray-700">
+                                <li><a class="dropdown-item dark:text-white dark:hover:bg-gray-600" href="{{ url_for('campaigns.list') }}">View All Campaigns</a></li>
+                                <li><a class="dropdown-item dark:text-white dark:hover:bg-gray-600" href="{{ url_for('campaigns.create') }}">Create New Campaign</a></li>
                             </ul>
                         </li>
                     </ul>
                     <div class="d-flex">
-                        <button class="btn btn-outline-light" type="button" id="themeSwitcher">
-                            <i class="bi bi-moon-fill"></i>
+                        <button class="btn btn-outline-light" type="button" @click="darkMode = !darkMode" x-text="darkMode ? 'Light Mode' : 'Dark Mode'">
+                            <i class="bi" :class="darkMode ? 'bi-sun-fill' : 'bi-moon-fill'"></i>
                         </button>
                     </div>
                 </div>
@@ -65,10 +78,14 @@
     </header>
 
     <main class="container py-4 flex-shrink-0">
+        <!-- Toast container for notifications -->
+        <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer"></div>
+
+        <!-- Flash messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    <div class="alert alert-{{ category }} alert-dismissible fade show dark:bg-gray-800 dark:text-white" role="alert">
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
@@ -79,7 +96,7 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="footer mt-auto py-3 bg-dark text-light">
+    <footer class="footer mt-auto py-3 bg-dark text-light dark:bg-gray-800">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -87,14 +104,19 @@
                 </div>
                 <div class="col-md-6 text-end">
                     <a href="#" class="text-light me-3"><i class="bi bi-github"></i></a>
-                    <a href="#" class="text-light me-3"><i class="bi bi-discord"></i></a>
-                    <a href="#" class="text-light"><i class="bi bi-question-circle"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-discord"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Additional scripts block -->
+    {% block scripts %}{% endblock %}
 </body>
 </html>

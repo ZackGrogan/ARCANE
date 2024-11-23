@@ -39,8 +39,12 @@ class TestDnDApiIntegration(unittest.TestCase):
         with self.app.app_context():
             encounter = Encounter(self.mongo, title='Battle of Helm', environment='Fortress', party_level=10, difficulty='Hard')
             with patch.object(DnDApiClient, 'get_monster', return_value={'name': 'Orc', 'hit_points': 15}):
-                encounter.add_monster('Orc')
-                assert 'Orc' in encounter.monsters
+                success, _ = encounter.add_monster('Orc')
+                assert success
+                monster = next((m for m in encounter.monsters if m['name'] == 'Orc'), None)
+                assert monster is not None
+                assert monster['quantity'] == 1
+                assert monster['hit_points'] == 15
 
     def test_get_monster_success(self):
         """Test getting monster details."""

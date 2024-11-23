@@ -263,18 +263,39 @@ class NPC:
             raise APIError(f"Error listing NPCs: {str(e)}", 500)
 
     @classmethod
-    def get_by_id(cls, mongo: PyMongo, npc_id: str) -> Optional['NPC']:
-        """Retrieve an NPC by its ID."""
+    def get_npc(cls, mongo, npc_name):
+        """Get an NPC by name.
+
+        Args:
+            mongo: MongoDB connection
+            npc_name (str): Name of the NPC to retrieve
+
+        Returns:
+            NPC: The NPC instance if found, None otherwise
+        """
+        npc_data = mongo.db.npcs.find_one({'name': npc_name})
+        if npc_data:
+            return cls.from_dict(mongo, npc_data)
+        return None
+
+    @classmethod
+    def get_by_id(cls, mongo, npc_id):
+        """Get an NPC by ID.
+
+        Args:
+            mongo: MongoDB connection
+            npc_id (str): ID of the NPC to retrieve
+
+        Returns:
+            NPC: The NPC instance if found, None otherwise
+        """
         try:
             npc_data = mongo.db.npcs.find_one({'_id': ObjectId(npc_id)})
             if npc_data:
-                npc_data['_id'] = str(npc_data['_id'])
-                if 'class' in npc_data:
-                    npc_data['npc_class'] = npc_data.pop('class')
-                return cls(mongo=mongo, **npc_data)
+                return cls.from_dict(mongo, npc_data)
+        except Exception:
             return None
-        except Exception as e:
-            raise APIError(f"Error retrieving NPC: {str(e)}", 500)
+        return None
 
     @classmethod
     def from_dict(cls, mongo: PyMongo, data: Dict[str, Any]) -> 'NPC':

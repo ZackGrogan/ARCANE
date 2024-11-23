@@ -4,7 +4,7 @@ from backend.models.campaign import Campaign
 from backend.utils.errors import handle_api_error, APIError
 import logging
 
-bp = Blueprint('campaign', __name__)
+bp = Blueprint('campaign', __name__, url_prefix='/api/campaigns')
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -65,12 +65,12 @@ def get_campaigns():
     logger.debug("Processing get all campaigns request")
     try:
         campaigns = Campaign.list_campaigns(current_app.mongo)
-        return jsonify(campaigns)
+        return jsonify([campaign.to_dict() for campaign in campaigns])
     except Exception as e:
         logger.error(f"Failed to retrieve campaigns: {str(e)}")
         return jsonify({'error': f'Failed to retrieve campaigns: {str(e)}'}), 400
 
-@bp.route('/<campaign_name>', methods=['GET'])
+@bp.route('/<campaign_name>/', methods=['GET'])
 @handle_api_error
 def get_campaign(campaign_name):
     """Get a specific campaign."""
@@ -78,43 +78,36 @@ def get_campaign(campaign_name):
     try:
         campaign = Campaign.get_by_name(current_app.mongo, campaign_name)
         if not campaign:
-            return jsonify({'error': 'Campaign not found'}), 404
+            raise APIError("Campaign not found", 404)
         return jsonify(campaign.to_dict())
+    except APIError as e:
+        raise
     except Exception as e:
         logger.error(f"Failed to retrieve campaign {campaign_name}: {str(e)}")
-        return jsonify({'error': f'Failed to retrieve campaign: {str(e)}'}), 400
+        raise APIError(f"Failed to retrieve campaign: {str(e)}", 400)
 
-@bp.route('/<campaign_name>', methods=['PUT'])
+@bp.route('/<campaign_name>/', methods=['PUT'])
 @handle_api_error
 def update_campaign(campaign_name):
-    """Update a specific campaign."""
-    logger.debug(f"Processing update campaign request for: {campaign_name}")
+    """Update a campaign."""
+    campaign = Campaign.get_by_name(request.mongo, campaign_name)
+    if not campaign:
+        raise APIError("Campaign not found", 404)
+
     data = request.get_json()
     if not data:
-        raise APIError("No data provided", status_code=400)
+        raise APIError("No update data provided", 400)
 
     try:
-        campaign = Campaign.get_by_name(current_app.mongo, campaign_name)
-        if not campaign:
-            return jsonify({'error': 'Campaign not found'}), 404
-
-        # Validate update data
-        if 'name' in data and data['name'] != campaign_name:
-            # Check if new name is unique
-            existing = Campaign.get_by_name(current_app.mongo, data['name'])
-            if existing:
-                raise ValueError("Campaign with this name already exists")
-
+        data = validate_campaign_data(data, update=True)
         campaign.update(data)
         return jsonify(campaign.to_dict())
     except ValueError as e:
-        logger.error(f"Validation error: {str(e)}")
-        return jsonify({'error': str(e)}), 400
+        raise APIError(str(e), 400)
     except Exception as e:
-        logger.error(f"Failed to update campaign {campaign_name}: {str(e)}")
-        return jsonify({'error': f'Failed to update campaign: {str(e)}'}), 400
+        raise APIError(f"Failed to update campaign: {str(e)}", 500)
 
-@bp.route('/<campaign_name>', methods=['DELETE'])
+@bp.route('/<campaign_name>/', methods=['DELETE'])
 @handle_api_error
 def delete_campaign(campaign_name):
     """Delete a specific campaign."""
@@ -122,14 +115,16 @@ def delete_campaign(campaign_name):
     try:
         campaign = Campaign.get_by_name(current_app.mongo, campaign_name)
         if not campaign:
-            return jsonify({'error': 'Campaign not found'}), 404
+            raise APIError("Campaign not found", 404)
         campaign.delete()
         return '', 204
+    except APIError as e:
+        raise
     except Exception as e:
         logger.error(f"Failed to delete campaign {campaign_name}: {str(e)}")
-        return jsonify({'error': f'Failed to delete campaign: {str(e)}'}), 400
+        raise APIError(f"Failed to delete campaign: {str(e)}", 400)
 
-@bp.route('/<campaign_name>/npcs/<npc_id>', methods=['POST'])
+@bp.route('/<campaign_name>/npcs/<npc_id>/', methods=['POST'])
 @handle_api_error
 def add_npc_to_campaign(campaign_name, npc_id):
     """Add an NPC to a campaign."""
@@ -137,15 +132,17 @@ def add_npc_to_campaign(campaign_name, npc_id):
     try:
         campaign = Campaign.get_by_name(current_app.mongo, campaign_name)
         if not campaign:
-            return jsonify({'error': 'Campaign not found'}), 404
+            raise APIError("Campaign not found", 404)
 
         campaign.add_npc(npc_id)
         return jsonify(campaign.to_dict())
+    except APIError as e:
+        raise
     except Exception as e:
         logger.error(f"Failed to add NPC to campaign {campaign_name}, {npc_id}: {str(e)}")
-        return jsonify({'error': f'Failed to add NPC to campaign: {str(e)}'}), 400
+        raise APIError(f"Failed to add NPC to campaign: {str(e)}", 400)
 
-@bp.route('/<campaign_name>/npcs/<npc_id>', methods=['DELETE'])
+@bp.route('/<campaign_name>/npcs/<npc_id>/', methods=['DELETE'])
 @handle_api_error
 def remove_npc_from_campaign(campaign_name, npc_id):
     """Remove an NPC from a campaign."""
@@ -153,17 +150,19 @@ def remove_npc_from_campaign(campaign_name, npc_id):
     try:
         campaign = Campaign.get_by_name(current_app.mongo, campaign_name)
         if not campaign:
-            return jsonify({'error': 'Campaign not found'}), 404
+            raise APIError("Campaign not found", 404)
 
         if campaign.remove_npc(npc_id):
             return jsonify(campaign.to_dict())
         else:
-            return jsonify({'error': 'NPC not found in campaign'}), 404
+            raise APIError("NPC not found in campaign", 404)
+    except APIError as e:
+        raise
     except Exception as e:
         logger.error(f"Failed to remove NPC from campaign {campaign_name}, {npc_id}: {str(e)}")
-        return jsonify({'error': f'Failed to remove NPC from campaign: {str(e)}'}), 400
+        raise APIError(f"Failed to remove NPC from campaign: {str(e)}", 400)
 
-@bp.route('/<campaign_name>/encounters/<encounter_id>', methods=['POST'])
+@bp.route('/<campaign_name>/encounters/<encounter_id>/', methods=['POST'])
 @handle_api_error
 def add_encounter_to_campaign(campaign_name, encounter_id):
     """Add an encounter to a campaign."""
@@ -171,15 +170,17 @@ def add_encounter_to_campaign(campaign_name, encounter_id):
     try:
         campaign = Campaign.get_by_name(current_app.mongo, campaign_name)
         if not campaign:
-            return jsonify({'error': 'Campaign not found'}), 404
+            raise APIError("Campaign not found", 404)
 
         campaign.add_encounter(encounter_id)
         return jsonify(campaign.to_dict())
+    except APIError as e:
+        raise
     except Exception as e:
         logger.error(f"Failed to add encounter to campaign {campaign_name}, {encounter_id}: {str(e)}")
-        return jsonify({'error': f'Failed to add encounter to campaign: {str(e)}'}), 400
+        raise APIError(f"Failed to add encounter to campaign: {str(e)}", 400)
 
-@bp.route('/<campaign_name>/encounters/<encounter_id>', methods=['DELETE'])
+@bp.route('/<campaign_name>/encounters/<encounter_id>/', methods=['DELETE'])
 @handle_api_error
 def remove_encounter_from_campaign(campaign_name, encounter_id):
     """Remove an encounter from a campaign."""
@@ -187,12 +188,14 @@ def remove_encounter_from_campaign(campaign_name, encounter_id):
     try:
         campaign = Campaign.get_by_name(current_app.mongo, campaign_name)
         if not campaign:
-            return jsonify({'error': 'Campaign not found'}), 404
+            raise APIError("Campaign not found", 404)
 
         if campaign.remove_encounter(encounter_id):
             return jsonify(campaign.to_dict())
         else:
-            return jsonify({'error': 'Encounter not found in campaign'}), 404
+            raise APIError("Encounter not found in campaign", 404)
+    except APIError as e:
+        raise
     except Exception as e:
         logger.error(f"Failed to remove encounter from campaign {campaign_name}, {encounter_id}: {str(e)}")
-        return jsonify({'error': f'Failed to remove encounter from campaign: {str(e)}'}), 400
+        raise APIError(f"Failed to remove encounter from campaign: {str(e)}", 400)

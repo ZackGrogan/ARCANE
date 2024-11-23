@@ -13,7 +13,7 @@ This checklist outlines the development roadmap for the ARCANE project, incorpor
 - [x] Ensure Python 3.10 or above is installed
 - [x] Update virtual environment
 - [x] Install Flask and required packages
-- [ ] Install frontend dependencies (Bootstrap 5)
+- [x] Install frontend dependencies (Bootstrap 5)
 - [x] Update requirements.txt
 
 ### Project Structure Adjustment v0.1.2-ALPHA
@@ -71,7 +71,7 @@ This checklist outlines the development roadmap for the ARCANE project, incorpor
 - [x] Organize CSS, JavaScript, and image files within the static/ directory
 - [x] Integrate Bootstrap 5 using CDN
 - [x] Ensure static files are properly linked in the templates
-- [ ] Optimize asset loading for performance
+- [x] Optimize asset loading for performance
 
 ## v0.4.0-BETA - Map Generation Feature Development
 ### Procedural Map Generation Logic v0.4.1-BETA
@@ -205,22 +205,100 @@ This checklist outlines the development roadmap for the ARCANE project, incorpor
   - [x] Exception handling documentation
 
 ### Frontend Development v0.7.3-BETA
+- [x] Setup Frontend Environment
+  - [x] Configure Flask template structure
+  - [x] Setup static file organization (CSS, JS, images)
+  - [x] Install and configure Tailwind CSS
+  - [x] Integrate Bootstrap 5
+  - [x] Configure PostCSS and build process
+  - [x] Setup JavaScript dependencies
+
+- [x] Implement Base Templates
+  - [x] Create base layout using Bootstrap grid
+  - [x] Design responsive navigation with Tailwind/Bootstrap
+  - [x] Setup common includes (header, footer)
+  - [x] Create utility classes combining Tailwind/Bootstrap
+  - [x] Build component library
+    - [x] Custom form controls with Tailwind styles
+    - [x] Bootstrap-based alert system
+    - [x] Modal dialogs with Tailwind animations
+    - [x] Loading spinners and indicators
+    - [x] Responsive tables and cards
+
+- [x] Implement Interactive Features
+  - [x] Setup HTMX for dynamic updates
+  - [x] Add Alpine.js for component interactivity
+  - [x] Implement client-side validation
+  - [x] Add dynamic filtering and sorting
+  - [x] Create WebSocket connections for real-time features
+
+- [x] Enhance User Experience
+  - [x] Implement dark mode with Tailwind
+  - [x] Add smooth transitions
+  - [x] Create loading states
+  - [x] Optimize performance
+  - [x] Add keyboard shortcuts
+  - [x] Implement toast notifications
+
+- [x] Mobile Optimization
+  - [x] Test responsive breakpoints
+  - [x] Optimize touch targets
+  - [x] Add mobile-specific features
+  - [x] Ensure performance on mobile devices
 
 ### Frontend Testing v0.7.4-BETA
 - [ ] Implement Frontend Testing
+  - [ ] Test frontend components and interactions
+  - [ ] Verify form validation and submission
+  - [ ] Test responsive design and layouts
+  - [ ] Validate template rendering
 - [ ] Use tools like Flask-Testing or Selenium for E2E tests
 - [ ] Test form validation, submission, and user flows
 - [ ] Verify template rendering and static file serving
 
-## v0.8.0-BETA - Security Enhancements
-### Authentication and Authorization v0.8.1-BETA
-- [ ] Implement User Authentication
-- [ ] Use Flask-Login for session management
-- [ ] Create user registration and login functionalities
-- [ ] Protect routes with login requirements
-- [ ] Implement role-based access control if needed
+### Feature Templates v0.7.5-BETA
+- [ ] Campaign Management
+  - [ ] Campaign list with Bootstrap tables + Tailwind styling
+  - [ ] Campaign detail with responsive grid layout
+  - [ ] Campaign forms with custom styling
+- [ ] NPC Management
+  - [ ] NPC gallery with Tailwind grid
+  - [ ] NPC cards with hover effects
+  - [ ] Multi-step creation wizard
+- [ ] Encounter Builder
+  - [ ] Drag-and-drop monster interface
+  - [ ] Interactive initiative tracker
+  - [ ] Combat dashboard with live updates
+- [ ] Map Management
+  - [ ] Responsive map gallery
+  - [ ] Interactive map viewer
+  - [ ] Token management interface
 
-### Input Validation and Sanitization v0.8.2-BETA
+## v0.8.0-BETA - Authentication and Security
+### User Authentication v0.8.1-BETA
+- [ ] Design login/register pages
+- [ ] Create password reset workflow
+- [ ] Build user profile interface
+- [ ] Add settings dashboard
+- [ ] Implement User Authentication
+  - [ ] Use Flask-Login for session management
+  - [ ] Create user registration system
+  - [ ] Add login functionality
+  - [ ] Protect routes with login requirements
+  - [ ] Implement role-based access control
+
+### Authorization and Security v0.8.2-BETA
+- [ ] Implement role-based access control
+- [ ] Set up user permissions system
+- [ ] Create admin dashboard
+- [ ] Add user management features
+- [ ] Implement security best practices
+  - [ ] Password hashing and salting
+  - [ ] Session management
+  - [ ] CSRF protection
+  - [ ] XSS prevention
+
+### Input Validation and Sanitization v0.8.3-BETA
 - [ ] Ensure Input Security
 - [ ] Validate all user inputs on server-side
 - [ ] Sanitize inputs to prevent XSS and injection attacks

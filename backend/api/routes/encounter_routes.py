@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify, request, current_app
 from bson import ObjectId
 from backend.models.encounter import Encounter
 from backend.utils.errors import handle_api_error, APIError
+from backend.utils.dnd_api_client import DnDApiClient
 
 bp = Blueprint('encounter', __name__, url_prefix='/api/encounters')
 
@@ -27,24 +28,25 @@ def create_encounter():
         traps=data.get('traps', []),
         notes=data.get('notes', '')
     )
-    result = encounter.save()
-    return jsonify(result), 201
+    encounter.save()
+    return jsonify(encounter.to_dict()), 201
 
 @bp.route('/', methods=['GET'])
 @handle_api_error
 def get_encounters():
     """Get all encounters."""
     encounters = Encounter.list_encounters(request.mongo)
-    return jsonify(encounters)
+    return jsonify([encounter.to_dict() for encounter in encounters])
 
 @bp.route('/<encounter_id>/', methods=['GET'])
+@bp.route('/<encounter_id>', methods=['GET'])
 @handle_api_error
 def get_encounter(encounter_id):
-    """Get a specific encounter."""
+    """Get an encounter by ID."""
     try:
         _id = ObjectId(encounter_id)
     except Exception:
-        raise APIError("Invalid encounter ID", 400)
+        raise APIError("Invalid encounter ID", 404)
 
     encounter = Encounter.get_encounter(request.mongo, _id)
     if not encounter:
@@ -52,6 +54,7 @@ def get_encounter(encounter_id):
     return jsonify(encounter.to_dict())
 
 @bp.route('/<encounter_id>/', methods=['PUT'])
+@bp.route('/<encounter_id>', methods=['PUT'])
 @handle_api_error
 def update_encounter(encounter_id):
     """Update a specific encounter."""
@@ -66,10 +69,11 @@ def update_encounter(encounter_id):
         raise APIError("Encounter not found", 404)
 
     # Update fields
-    result = encounter.update(data)
-    return jsonify(result)
+    encounter.update(data)
+    return jsonify(encounter.to_dict())
 
 @bp.route('/<encounter_id>/', methods=['DELETE'])
+@bp.route('/<encounter_id>', methods=['DELETE'])
 @handle_api_error
 def delete_encounter(encounter_id):
     """Delete a specific encounter."""
@@ -86,26 +90,36 @@ def delete_encounter(encounter_id):
         return '', 204
     raise APIError("Failed to delete encounter", 500)
 
-@bp.route('/<encounter_id>/monsters/<monster_name>/', methods=['POST'])
-def add_monster(encounter_id, monster_name):
+@bp.route('/<encounter_id>/monsters/', methods=['POST'])
+@bp.route('/<encounter_id>/monsters', methods=['POST'])
+@handle_api_error
+def add_monster(encounter_id):
     """Add a monster to an encounter."""
     try:
-        encounter = Encounter.get_encounter(current_app.mongo, encounter_id)
-        if not encounter:
-            return jsonify({'error': 'Encounter not found'}), 404
+        _id = ObjectId(encounter_id)
+    except Exception:
+        raise APIError("Invalid encounter ID", 400)
 
-        success, message = encounter.add_monster(monster_name)
-        if success:
-            return jsonify(encounter.to_dict()), 200
-        return jsonify({'error': message}), 400
-    except ValueError as e:
-        return jsonify({'error': str(e)}), 400
-    except RuntimeError as e:
-        return jsonify({'error': str(e)}), 500
-    except Exception as e:
-        return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
+    data = request.get_json()
+    if not data or 'monster_name' not in data:
+        raise APIError("Monster name is required", 400)
+
+    encounter = Encounter.get_by_id(request.mongo, _id)
+    if not encounter:
+        raise APIError("Encounter not found", 404)
+
+    monster_name = data['monster_name']
+    quantity = data.get('quantity', 1)
+
+    success, message = encounter.add_monster(monster_name, quantity)
+    if success:
+        encounter_dict = encounter.to_dict()
+        encounter_dict['message'] = message
+        return jsonify(encounter_dict)
+    raise APIError(message, 500)
 
 @bp.route('/<encounter_id>/monsters/<monster_name>/', methods=['DELETE'])
+@bp.route('/<encounter_id>/monsters/<monster_name>', methods=['DELETE'])
 @handle_api_error
 def remove_monster(encounter_id, monster_name):
     """Remove a monster from an encounter."""
@@ -114,9 +128,13 @@ def remove_monster(encounter_id, monster_name):
     except Exception:
         raise APIError("Invalid encounter ID", 400)
 
-    encounter = Encounter.get_encounter(request.mongo, _id)
+    encounter = Encounter.get_by_id(request.mongo, _id)
     if not encounter:
         raise APIError("Encounter not found", 404)
-    if encounter.remove_monster(monster_name):
-        return jsonify(encounter.to_dict())
-    raise APIError("Monster not found in encounter", 404)
+
+    success = encounter.remove_monster(monster_name)
+    if success:
+        encounter_dict = encounter.to_dict()
+        encounter_dict['message'] = f"Successfully removed monster {monster_name}"
+        return jsonify(encounter_dict)
+    raise APIError(f"Monster '{monster_name}' not found in encounter", 404)

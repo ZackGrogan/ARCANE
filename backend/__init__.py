@@ -21,13 +21,15 @@ def create_app(test_config=None):
     if test_config is None:
         app.config.from_mapping(
             SECRET_KEY='dev',
-            MONGO_URI='mongodb://localhost:27017/arcane'
+            MONGO_URI='mongodb://localhost:27017/arcane',
+            STRICT_SLASHES=False  # Allow URLs with or without trailing slashes
         )
     elif isinstance(test_config, str) and test_config == 'testing':
         app.config.from_mapping(
             TESTING=True,
             SECRET_KEY='test',
-            MONGO_URI='mongodb://localhost:27017/test_db'
+            MONGO_URI='mongodb://localhost:27017/test_db',
+            STRICT_SLASHES=False  # Allow URLs with or without trailing slashes
         )
     else:
         app.config.update(test_config)
